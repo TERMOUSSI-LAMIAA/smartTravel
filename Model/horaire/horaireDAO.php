@@ -1,6 +1,6 @@
 <?php
 require_once 'Model/connexion.php';
-require_once 'Model\route\ModelRoute.php';
+require_once 'Model/horaire/ModelHoraire.php';
 class HoraireDAO{
     private $db;
     public function __construct(){
@@ -8,15 +8,15 @@ class HoraireDAO{
     }
 
     public function get_horaire(){
-        $query = "SELECT * FROM route";
+        $query = "SELECT * FROM horaire";
         $stmt = $this->db->query($query);
         $stmt -> execute();
-        $routeData = $stmt->fetchAll();
-        $routes = array();
-        foreach ($routeData as $B) {
-            $routes[] = new Route($B["vil_dep"],$B["vil_arv"],$B["dist"],$B["duree"]);
+        $horaireData = $stmt->fetchAll();
+        $horaires = array();
+        foreach ($horaireData as $B) {
+            $horaires[] = new Horaire($B["idHor"],$B["hr_dep"],$B["hr_arv"],$B["sieg_dispo"],$B["prix"],$B["date_"],$B["fk_immat"],$B["fk_vil_dep"],$B["fk_vil_arv"]);
         }
-        return $routes;
+        return $horaires;
 
     }
 

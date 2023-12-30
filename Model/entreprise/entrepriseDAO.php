@@ -20,7 +20,21 @@ class EntrepriseDAO{
 
     }
 
+    public function getEntrepriseNameById($id) {
+        $query = "SELECT nomEn FROM entreprise WHERE idEn = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+        $stmt->execute();
 
+        // Fetch the result
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($result) {
+            return $result['nomEn'];
+        } else {
+            return "Unknown Enterprise";
+        }
+    }
 
 
 }

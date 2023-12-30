@@ -11,18 +11,24 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
-<body style="background-color:white;">
-    <nav>
-        <img src="assets/images/logo.png" alt="logo" height="60" width="300">
-        <a href="logout.php">Bus</a>
-        <a href="logout.php">route</a>
-        <a href="logout.php">Horaire</a>
+<body style="background-color: white;">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <img src="assets/images/logo.png" alt="logo" height="60" width="300">
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="logout.php">Bus</a></li>
+                <li><a href="logout.php">Route</a></li>
+                <li><a href="logout.php">Horaire</a></li>
+            </ul>
+        </div>
     </nav>
     <!-- form -->
     <div class="container">
         <div class="row">
-            <a href="addBus.php" id="addBusButton">
-                <button>Add Bus</button>
+            <a href="Vue\admin\addBus.php" id="addBusButton" class="btn btn-success">
+                Add Bus
             </a>
         </div>
         <div class="content">
@@ -39,20 +45,13 @@
                 <tbody>
                     <?php foreach ($buses as $b) { ?>
                         <tr>
+                            <td><?= $b->getImmat(); ?></td>
+                            <td><?= $b->getNumbus(); ?></td>
+                            <td><?= $b->getCapacite(); ?></td>
+                            <td><?= $b->getEnterpriseName(); ?></td>
                             <td>
-                                <?= $b->getImmat(); ?>
-                            </td>
-                            <td>
-                                <?= $b->getNumbus(); ?>
-                            </td>
-                            <td>
-                                <?= $b->getCapacite(); ?>
-                            </td>
-                            <td>
-                                <?= $b->getFk_idEn(); ?>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-primary">Update</button>
+                                <a href="index.php?action=updateBus&immat=<?= $b->getImmat() ?>"
+                                    class="btn btn-primary">Update</a>
                                 <button type="button" class="btn btn-danger">Delete</button>
                             </td>
                         </tr>
@@ -60,8 +59,7 @@
                 </tbody>
             </table>
         </div>
-
-
+    </div>
 </body>
 
 </html>

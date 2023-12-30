@@ -10,8 +10,8 @@ class contoller_Ville {
    $VilleDAO = new VilleDAO() ;
    $villes = $VilleDAO-> get_ville();
 
-   include "Vue/admin/addRoute.php" ; 
-
+//    include "Vue/admin/addRoute.php" ; 
+   include "Vue\home.php";
 
     }
 
