@@ -48,11 +48,17 @@
             <div class="form-group">
                 <label for="fk_idEn">Entreprise:</label>
                 <select name="fk_idEn" class="form-control">
-                    <?php foreach ($entreprises as $entreprise) { ?>
-                        <option value="<?= $entreprise->getIdEn(); ?>">
-                            <?= $entreprise->getNomEn(); ?>
-                        </option>
-                    <?php } ?>
+                    <?php foreach ($entreprises as $entreprise): ?>
+                        <?php if ($entreprise->getIdEn() === $bus->getFk_idEn()) { ?>
+                            <option selected>
+                                <?= $entreprise->getNomEn() ?>
+                            </option>
+                        <?php } else { ?>
+                            <option>
+                                <?= $entreprise->getNomEn() ?>
+                            </option>
+                        <?php } ?>
+                    <?php endforeach; ?>
                 </select>
             </div>
             <div class="form-group text-center">
@@ -61,5 +67,6 @@
         </form>
     </div>
 </body>
+
 
 </html>

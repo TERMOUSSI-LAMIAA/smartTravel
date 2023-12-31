@@ -27,20 +27,17 @@ class contoller_bus
     {
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
             $busDAO = new BusDAO();
-
             // Call the addBus method to add the bus to the database
-            $busDAO->insert_bus();
-
-            // Redirect to the page showing buses or display a success message
-            header('Location: index.php?action=showBuses');
-            echo 'Ajout avec succés';
-            exit();
-        } else {
-            echo 'Adding error';
-            // include "Vue\admin\addBus.php";
+            $inserted = $busDAO->insert_bus();
+            if ($inserted) {
+                header('Location: index.php');
+                exit();
+            } else {
+                echo 'Adding error';
+            }
         }
+
 
     }
     public function updtBusController()
@@ -57,20 +54,21 @@ class contoller_bus
 
     public function updtBusControllerAction()
     {
-        $busDAO = new BusDAO();
-        $busDAO->updateBus();
-        header('Location: index.php?action=showBuses');
-        echo 'Modification avec succés';
-        exit;
+        try {
+            $busDAO = new BusDAO();
+            $busDAO->updateBus();
+            header('Location: index.php');
+            exit;
+        } catch (Exception $e) {
+            error_log('Error in updtBusControllerAction: ' . $e->getMessage(), 0);
+        }
     }
-
     public function deleteBusControllerAction()
     {
-        $immat=$_GET["immat"];
+        $immat = $_GET["immat"];
         $busDAO = new BusDAO();
         $busDAO->deleteBus($immat);
-        header('Location: index.php?action=showBuses');
-        echo 'Suppression avec succés';
+        header('Location: index.php');
         exit;
     }
 

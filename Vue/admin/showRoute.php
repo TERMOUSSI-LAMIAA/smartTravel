@@ -18,16 +18,16 @@
                 <img src="assets/images/logo.png" alt="logo" height="60" width="300">
             </div>
             <ul class="nav navbar-nav">
-                <li><a href="logout.php">Bus</a></li>
-                <li><a href="logout.php">Route</a></li>
-                <li><a href="logout.php">Horaire</a></li>
+                <li><a href="index.php?action=showBus">Bus</a></li>
+                <li><a href="index.php?action=showRoute">Route</a></li>
+                <li><a href="index.php?action=showHoraire">Horaire</a></li>
             </ul>
         </div>
     </nav>
     <!-- form -->
     <div class="container">
         <div class="row">
-            <a href="addRoute.php" id="addBusButton" class="btn btn-success">
+            <a href="index.php?action=addRouteform" id="addBusButton" class="btn btn-success">
                 Ajouter route
             </a>
         </div>
@@ -46,13 +46,23 @@
                 <tbody>
                     <?php foreach ($routes as $b) { ?>
                         <tr>
-                            <td><?= $b->getVil_dep(); ?></td>
-                            <td><?= $b->getVil_arv(); ?></td>
-                            <td><?= $b->getDist(); ?></td>
-                            <td><?= $b->getDuree(); ?></td>
                             <td>
-                                <button type="button" class="btn btn-primary">Update</button>
-                                <button type="button" class="btn btn-danger">Delete</button>
+                                <?= $b->getVil_dep(); ?>
+                            </td>
+                            <td>
+                                <?= $b->getVil_arv(); ?>
+                            </td>
+                            <td>
+                                <?= $b->getDist(); ?><span> KM</span>
+                            </td>
+                            <td>
+                                <?= $b->getDuree(); ?>
+                            </td>
+                            <td>
+                                <a href="index.php?action=updateRouteShow&vil_dep=<?= $b->getVil_dep() ?>&vil_arv=<?= $b->getVil_arv() ?>"
+                                    class="btn btn-primary">Update</a>
+                                <a href="index.php?action=deleteRouteShow&vil_dep=<?= $b->getVil_dep() ?>&vil_arv=<?= $b->getVil_arv() ?>"
+                                    class="btn btn-danger">Delete</a>
                             </td>
                         </tr>
                     <?php } ?>

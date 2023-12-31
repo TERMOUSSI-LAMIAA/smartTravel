@@ -24,7 +24,6 @@ class BusDAO
             $buses[count($buses) - 1]->setEnterpriseName($entrepriseName);
         }
         return $buses;
-
     }
     public function insert_bus()
     {
@@ -45,10 +44,8 @@ class BusDAO
                 $stmt->bindParam(':numbus', $numbus);
                 $stmt->bindParam(':capacite', $capacite);
                 $stmt->bindParam(':fk_idEn', $fk_idEn);
-
                 // Execute the statement
                 $stmt->execute();
-
                 // Return true on success
                 return true;
             } catch (PDOException $e) {
@@ -94,14 +91,12 @@ class BusDAO
                 // Prepare the SQL statement
                 $query = "update bus set  numbus=:numbus, capacite=:capacite, fk_idEn=:fk_idEn WHERE immat=:immat";
                 $stmt = $this->db->prepare($query);
-
                 // Bind parameters
                 $stmt->bindParam(':immat', $immat);
                 $stmt->bindParam(':numbus', $numbus);
                 $stmt->bindParam(':capacite', $capacite);
                 $stmt->bindParam(':fk_idEn', $fk_idEn);
                 $stmt->execute();
-
                 // Return true on success
                 return true;
             } catch (PDOException $e) {
@@ -123,11 +118,6 @@ class BusDAO
             return false;
         }
     }
-
-
-
-
-
 }
 
 ?>

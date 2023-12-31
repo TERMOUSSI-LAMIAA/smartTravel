@@ -18,16 +18,16 @@
                 <img src="assets/images/logo.png" alt="logo" height="60" width="300">
             </div>
             <ul class="nav navbar-nav">
-                <li><a href="logout.php">Bus</a></li>
-                <li><a href="logout.php">Route</a></li>
-                <li><a href="logout.php">Horaire</a></li>
+                <li><a href="index.php?action=showBus">Bus</a></li>
+                <li><a href="index.php?action=showRoute">Route</a></li>
+                <li><a href="index.php?action=showHoraire">Horaire</a></li>
             </ul>
         </div>
     </nav>
     <!-- form -->
     <div class="container">
         <div class="row">
-            <a href="addRoute.php" id="addBusButton" class="btn btn-success">
+            <a href="index.php?action=addHoraireform" id="addBusButton" class="btn btn-success">
                 Ajouter horaire
             </a>
         </div>
@@ -50,14 +50,30 @@
                 <tbody>
                     <?php foreach ($horaires as $b) { ?>
                         <tr>
-                            <td><?= $b->getHr_dep(); ?></td>
-                            <td><?= $b->getHr_arv(); ?></td>
-                            <td><?= $b->getSieg_dispo(); ?></td>
-                            <td><?= $b->getPrix(); ?></td>
-                            <td><?= $b->getDate_(); ?></td>
-                            <td><?= $b->getFk_immat(); ?></td>
-                            <td><?= $b->getFk_vil_dep(); ?></td>
-                            <td><?= $b->getFk_vil_arv(); ?></td>
+                            <td>
+                                <?= $b->getHr_dep(); ?>
+                            </td>
+                            <td>
+                                <?= $b->getHr_arv(); ?>
+                            </td>
+                            <td>
+                                <?= $b->getSieg_dispo(); ?>
+                            </td>
+                            <td>
+                                <?= $b->getPrix(); ?>
+                            </td>
+                            <td>
+                                <?= $b->getDate_(); ?>
+                            </td>
+                            <td>
+                                <?= $b->getFk_immat(); ?>
+                            </td>
+                            <td>
+                                <?= $b->getFk_vil_dep(); ?>
+                            </td>
+                            <td>
+                                <?= $b->getFk_vil_arv(); ?>
+                            </td>
                             <td>
                                 <button type="button" class="btn btn-primary">Update</button>
                                 <button type="button" class="btn btn-danger">Delete</button>

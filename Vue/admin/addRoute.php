@@ -24,7 +24,8 @@
 </head>
 
 <body>
-    <form method="POST" enctype="multipart/form-data" class="form-horizontal">
+    <form method="POST" action="index.php?action=addRoute" enctype="multipart/form-data" class="form-horizontal">
+        <h2 class="text-center">Add Route</h2>
         <div class="form-group">
             <label for="vil_dep" class="control-label col-sm-2">Ville départ:</label>
             <div class="col-sm-10">

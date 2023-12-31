@@ -18,9 +18,9 @@
                 <img src="assets/images/logo.png" alt="logo" height="60" width="300">
             </div>
             <ul class="nav navbar-nav">
-                <li><a href="logout.php">Bus</a></li>
-                <li><a href="logout.php">Route</a></li>
-                <li><a href="logout.php">Horaire</a></li>
+                <li><a href="index.php?action=showBus">Bus</a></li>
+                <li><a href="index.php?action=showRoute">Route</a></li>
+                <li><a href="index.php?action=showHoraire">Horaire</a></li>
             </ul>
         </div>
     </nav>

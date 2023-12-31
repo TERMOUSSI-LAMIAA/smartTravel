@@ -8,7 +8,7 @@ include "Controller/entrepriseController.php";
 // $contoller_villes = new contoller_Ville() ; 
 // $contoller_villes->getVilleController() ;
 $controllerBus = new contoller_bus();
-$controllerBus->getBusController();
+
 
 // $controllerBus->addBusController();
 // $controllerBus->addBusController();
@@ -17,9 +17,9 @@ $controllerBus->getBusController();
 
 // $controllerEntreprise = new contoller_entreprise();
 // $controllerEntreprise->getEntrepriseController();
-// $controllerRoute=new contoller_route();
-// $controllerRoute->getRouteController();
-// $controllerHoraire =new contoller_horaire();
+$controllerRoute = new contoller_route();
+// 
+$controllerHoraire = new contoller_horaire();
 // $controllerHoraire->getHoraireController();
 // $controllerBus = new contoller_bus();
 // $controllerEntreprise = new contoller_entreprise();
@@ -31,6 +31,8 @@ if (isset($_GET['action'])) {
     $action = $_GET['action'];
 
     switch ($action) {
+        case 'showBus':
+            $controllerBus->getBusController();
         case 'addBusform':
             $controllerBus->addBusController();
         case 'addBus':
@@ -43,10 +45,28 @@ if (isset($_GET['action'])) {
             break;
         case 'deleteBus':
             $controllerBus->deleteBusControllerAction();
+        case 'showRoute':
+            $controllerRoute->getRouteController();
+        case 'addRouteform':
+            $controllerRoute->addRouteController();
+        case 'addRoute':
+            $controllerRoute->addRouteControllerAction();
+        case 'updateRouteShow':
+            $controllerRoute->updtRouteController();
+        case 'updtRoute':
+            $controllerRoute->updtRouteControllerAction();
+        case 'deleteRouteShow':
+            $controllerRoute->deleteRouteControllerAction();
+        case 'showHoraire':
+            $controllerHoraire->getHoraireController();
+        case 'addHoraireform':
+            $controllerHoraire->addHoraireController();
+        case 'addHoraire':
+            $controllerHoraire->addHoraireControllerAction();
 
     }
 
 } else {
-    // $controllerBus->getBusController();
+    $controllerBus->getBusController();
 }
 ?>
