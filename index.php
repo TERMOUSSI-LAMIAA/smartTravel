@@ -9,7 +9,9 @@ include "Controller/entrepriseController.php";
 // $contoller_villes->getVilleController() ;
 $controllerBus = new contoller_bus();
 $controllerBus->getBusController();
-$controllerBus->addBusController();
+
+// $controllerBus->addBusController();
+// $controllerBus->addBusController();
 // Create an instance of the controller and handle the request
 
 
@@ -29,16 +31,22 @@ if (isset($_GET['action'])) {
     $action = $_GET['action'];
 
     switch ($action) {
+        case 'addBusform':
+            $controllerBus->addBusController();
         case 'addBus':
             $controllerBus->addBusControllerAction();
             break;
+        case 'updateBusShow':
+            $controllerBus->updtBusController();
         case 'updtBus':
-           
+            $controllerBus->updtBusControllerAction();
             break;
+        case 'deleteBus':
+            $controllerBus->deleteBusControllerAction();
 
     }
 
 } else {
-    $controllerBus->getBusController();
+    // $controllerBus->getBusController();
 }
 ?>

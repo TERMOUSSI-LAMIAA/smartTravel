@@ -27,7 +27,7 @@
     <!-- form -->
     <div class="container">
         <div class="row">
-            <a href="Vue\admin\addBus.php" id="addBusButton" class="btn btn-success">
+            <a href="index.php?action=addBusform" id="addBusButton" class="btn btn-success">
                 Add Bus
             </a>
         </div>
@@ -50,9 +50,9 @@
                             <td><?= $b->getCapacite(); ?></td>
                             <td><?= $b->getEnterpriseName(); ?></td>
                             <td>
-                                <a href="index.php?action=updateBus&immat=<?= $b->getImmat() ?>"
+                                <a href="index.php?action=updateBusShow&immat=<?= $b->getImmat() ?>"
                                     class="btn btn-primary">Update</a>
-                                <button type="button" class="btn btn-danger">Delete</button>
+                                <a href="index.php?action=deleteBus&immat=<?= $b->getImmat() ?>" class="btn btn-danger">Delete</a>
                             </td>
                         </tr>
                     <?php } ?>

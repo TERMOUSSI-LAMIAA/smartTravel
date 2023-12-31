@@ -30,19 +30,31 @@
 
             <div class="form-group">
                 <label for="immatriculation">Immatriculation:</label>
-                <input type="text" value="<?= $buses->getImmat() ?>" id="immatriculation" name="immatriculation" class="form-control">
+                <input type="text" value="<?= $bus->getImmat() ?>" id="immatriculation" name="immatriculation"
+                    class="form-control" readonly>
             </div>
 
             <div class="form-group">
                 <label for="numero_bus">Numero Bus:</label>
-                <input type="text" value="<?= $buses->getNumbus() ?>" id="numero_bus" name="numero_bus" class="form-control">
+                <input type="text" value="<?= $bus->getNumbus() ?>" id="numero_bus" name="numero_bus"
+                    class="form-control">
             </div>
 
             <div class="form-group">
                 <label for="capacite">Capacite:</label>
-                <input type="text" value="<?= $buses->getCapacite() ?>" id="capacite" name="capacite" class="form-control">
+                <input type="text" value="<?= $bus->getCapacite() ?>" id="capacite" name="capacite"
+                    class="form-control">
             </div>
-
+            <div class="form-group">
+                <label for="fk_idEn">Entreprise:</label>
+                <select name="fk_idEn" class="form-control">
+                    <?php foreach ($entreprises as $entreprise) { ?>
+                        <option value="<?= $entreprise->getIdEn(); ?>">
+                            <?= $entreprise->getNomEn(); ?>
+                        </option>
+                    <?php } ?>
+                </select>
+            </div>
             <div class="form-group text-center">
                 <input type="submit" value="Modifier" class="btn btn-primary">
             </div>

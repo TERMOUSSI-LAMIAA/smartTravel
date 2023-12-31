@@ -68,10 +68,10 @@ class BusDAO
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(":immat", $immat, PDO::PARAM_STR);
         $stmt->execute();
-    
+
         // Fetch the result
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    
+
         if ($result) {
             // Create a Bus object using the fetched data
             return new Bus($result["immat"], $result["numbus"], $result["capacite"], $result["fk_idEn"]);
@@ -80,28 +80,54 @@ class BusDAO
             return null;
         }
     }
-    // public function update_book($book){
-    //     $query = "UPDATE `BOOK` SET `Title`='".$book->getTitle()."',`Genra`='".$book->getGenre()."' where `ISBN`='".$book->getISBN()."'";
-    //     // echo $query;
-    //     $stmt = $this->db->query($query);
-    //     $stmt -> execute();
-    // }
 
-    // function getBookByID($isbn) {
-    //     $query = "SELECT * FROM BOOK where ISBN = $isbn";
-    //     $stmt = $this->db->query($query);
-    //     $stmt -> execute();
-    //     $B = $stmt->fetch();
+    public function updateBus()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // Get values from $_POST
+            $immat = $_POST["immatriculation"];
+            $numbus = $_POST["numero_bus"];
+            $capacite = $_POST["capacite"];
+            $fk_idEn = $_POST["fk_idEn"];
 
-    //         $Book = new Book($B["ISBN"],$B["Title"],$B["Genra"], $B["NbrofPages"],$B["Price"],$B["Author"]);
+            try {
+                // Prepare the SQL statement
+                $query = "update bus set  numbus=:numbus, capacite=:capacite, fk_idEn=:fk_idEn WHERE immat=:immat";
+                $stmt = $this->db->prepare($query);
 
-    //     return $Book;
+                // Bind parameters
+                $stmt->bindParam(':immat', $immat);
+                $stmt->bindParam(':numbus', $numbus);
+                $stmt->bindParam(':capacite', $capacite);
+                $stmt->bindParam(':fk_idEn', $fk_idEn);
+                $stmt->execute();
 
-    // }
+                // Return true on success
+                return true;
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+                return false;
+            }
+        }
+    }
+    function deleteBus($immat)
+    {
+        try {
+            $query = "delete from bus where immat=:immat";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':immat', $immat);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return false;
+        }
+    }
+
+
 
 
 
 }
 
-
-
+?>
