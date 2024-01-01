@@ -9,13 +9,41 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .navbar {
+            height: 50px;
+            background-color: #dfa974;
+        }
+
+        .navbar-header h3 {
+
+            margin-top: 10px;
+
+        }
+
+        /* Navbar Links */
+        .navbar-nav li a {
+            /* color: #ffffff; */
+            font-size: 16px;
+            /* Font size */
+            margin-right: 15px;
+            /* Adjust the right margin as needed */
+            margin-left: 40px;
+            /* Adjust the right margin as needed */
+        }
+
+        /* Change the color of the active link */
+        .navbar-nav li.active a {
+            /* color: #ffcc00; */
+        }
+    </style>
 </head>
 
 <body style="background-color: white;">
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
             <div class="navbar-header">
-                <img src="assets/images/logo.png" alt="logo" height="60" width="300">
+                <h3>Smart Travel</h3>
             </div>
             <ul class="nav navbar-nav">
                 <li><a href="index.php?action=showBus">Bus</a></li>
@@ -26,6 +54,7 @@
     </nav>
     <!-- form -->
     <div class="container">
+        <h2 class="text-center">Gestion Horaire</h2>
         <div class="row">
             <a href="index.php?action=addHoraireform" id="addBusButton" class="btn btn-success">
                 Ajouter horaire
@@ -75,8 +104,10 @@
                                 <?= $b->getFk_vil_arv(); ?>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-primary">Update</button>
-                                <button type="button" class="btn btn-danger">Delete</button>
+                                <a href="index.php?action=updateHorShow&idHor=<?= $b->getIdHor() ?> "
+                                    class="btn btn-primary">Update</a>
+                                    <a href="index.php?action=deleteHor&idHor=<?= $b->getIdHor() ?>"
+                                    class="btn btn-danger">Delete</a>
                             </td>
                         </tr>
                     <?php } ?>

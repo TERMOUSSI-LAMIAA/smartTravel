@@ -31,7 +31,7 @@ class contoller_bus
             // Call the addBus method to add the bus to the database
             $inserted = $busDAO->insert_bus();
             if ($inserted) {
-                header('Location: index.php');
+                header('Location: index.php?action=admin');
                 exit();
             } else {
                 echo 'Adding error';
@@ -57,7 +57,7 @@ class contoller_bus
         try {
             $busDAO = new BusDAO();
             $busDAO->updateBus();
-            header('Location: index.php');
+            header('Location: index.php?action=admin');
             exit;
         } catch (Exception $e) {
             error_log('Error in updtBusControllerAction: ' . $e->getMessage(), 0);
@@ -68,7 +68,7 @@ class contoller_bus
         $immat = $_GET["immat"];
         $busDAO = new BusDAO();
         $busDAO->deleteBus($immat);
-        header('Location: index.php');
+        header('Location: index.php?action=admin');
         exit;
     }
 

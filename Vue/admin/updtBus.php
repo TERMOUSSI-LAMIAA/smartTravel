@@ -50,11 +50,11 @@
                 <select name="fk_idEn" class="form-control">
                     <?php foreach ($entreprises as $entreprise): ?>
                         <?php if ($entreprise->getIdEn() === $bus->getFk_idEn()) { ?>
-                            <option selected>
+                            <option value="<?= $entreprise->getIdEn(); ?>" selected>
                                 <?= $entreprise->getNomEn() ?>
                             </option>
                         <?php } else { ?>
-                            <option>
+                            <option value="<?= $entreprise->getIdEn(); ?>" >
                                 <?= $entreprise->getNomEn() ?>
                             </option>
                         <?php } ?>

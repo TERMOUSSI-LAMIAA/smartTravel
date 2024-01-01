@@ -48,13 +48,17 @@ class contoller_route
         }
     }
 
-    public function updtRouteControllerAction()
+    public function updtRouteControllerAction()//!!!!!!!!!!!!
     {
-        $routeDAO = new RouteDAO();
-        $routeDAO->updateRoute();
-        header('Location: index.php?action=showRoute');
-        exit;
-
+        try{
+            $routeDAO = new RouteDAO();
+            $routeDAO->updateRoute();
+            header('Location: index.php?action=showRoute');
+            exit;
+        }
+        catch (Exception $e) {
+            error_log('Error in updtBusControllerAction:' . $e->getMessage(), 0);
+        }
 
     }
 

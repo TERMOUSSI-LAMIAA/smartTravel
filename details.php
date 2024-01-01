@@ -24,6 +24,9 @@
     <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
+    <style>
+
+    </style>
 </head>
 
 <body>
@@ -60,7 +63,7 @@
         <nav class="mainmenu mobile-menu">
             <ul>
                 <li class="active"><a href="./index.html">Home</a></li>
-                <li><a href="./rooms.html">Rooms</a></li>
+                <!-- <li><a href="./rooms.html">Rooms</a></li>
                 <li><a href="./about-us.html">About Us</a></li>
                 <li><a href="./pages.html">Pages</a>
                     <ul class="dropdown">
@@ -71,7 +74,7 @@
                     </ul>
                 </li>
                 <li><a href="./blog.html">News</a></li>
-                <li><a href="./contact.html">Contact</a></li>
+                <li><a href="./contact.html">Contact</a></li> -->
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -82,8 +85,8 @@
             <a href="#"><i class="fa fa-instagram"></i></a>
         </div>
         <ul class="top-widget">
-            <li><i class="fa fa-phone"></i> (12) 345 67890</li>
-            <li><i class="fa fa-envelope"></i> info.colorlib@gmail.com</li>
+            <li><i class="fa fa-phone"></i> (+212) 741982269</li>
+            <li><i class="fa fa-envelope"></i> smart_travel@gmail.com</li>
         </ul>
     </div>
     <!-- Offcanvas Menu Section End -->
@@ -95,8 +98,8 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <ul class="tn-left">
-                            <li><i class="fa fa-phone"></i> (12) 345 67890</li>
-                            <li><i class="fa fa-envelope"></i> info.colorlib@gmail.com</li>
+                            <li><i class="fa fa-phone"></i> (+212) 741982269</li>
+                            <li><i class="fa fa-envelope"></i> smart_travel@gmail.com</li>
                         </ul>
                     </div>
                     <div class="col-lg-6">
@@ -104,7 +107,7 @@
                             <div class="top-social">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
                                 <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-tripadvisor"></i></a>
+                                <!-- <a href="#"><i class="fa fa-tripadvisor"></i></a> -->
                                 <a href="#"><i class="fa fa-instagram"></i></a>
                             </div>
                             <a href="#" class="bk-btn">Booking Now</a>
@@ -129,7 +132,8 @@
                     <div class="col-lg-2">
                         <div class="logo">
                             <a href="./index.html">
-                                <img src="img/logo.png" alt="">
+                                <!-- <img src="img/logo.png" alt=""> -->
+                                <h4>Smart Travel</h4>
                             </a>
                         </div>
                     </div>
@@ -138,7 +142,7 @@
                             <nav class="mainmenu">
                                 <ul>
                                     <li><a href="./index.html">Home</a></li>
-                                    <li class="active"><a href="./rooms.html">Rooms</a></li>
+                                    <!-- <li class="active"><a href="./rooms.html">Rooms</a></li>
                                     <li><a href="./about-us.html">About Us</a></li>
                                     <li><a href="./pages.html">Pages</a>
                                         <ul class="dropdown">
@@ -149,7 +153,7 @@
                                         </ul>
                                     </li>
                                     <li><a href="./blog.html">News</a></li>
-                                    <li><a href="./contact.html">Contact</a></li>
+                                    <li><a href="./contact.html">Contact</a></li> -->
                                 </ul>
                             </nav>
                             <div class="nav-right search-switch">
@@ -163,17 +167,47 @@
     </header>
     <!-- Header End -->
 
+    <!-- Filter Section Begin -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="sidebar">
+                        <h3>Filter Options</h3>
+                        <!-- Add your filter options here -->
+                        <div class="form-group">
+                            <label for="departure">Departure City:</label>
+                            <select class="form-control" id="departure">
+                                <option value="safi">Safi</option>
+                                <option value="marrakech">Marrakech</option>
+                                <!-- Add more options as needed -->
+                            </select>
+                        </div>
+                        <!-- Add more filter options as needed -->
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <!-- Your existing content goes here -->
+                    <section class="rooms-section spad">
+                        <!-- ... (your existing content) ... -->
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Filter Section End -->
+
     <!-- Breadcrumb Section Begin -->
     <div class="breadcrumb-section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb-text">
-                        <h2>Our Rooms</h2>
-                        <div class="bt-option">
+                        <h2>Our schedules</h2>
+                        <!-- <div class="bt-option">
                             <a href="./home.html">Home</a>
                             <span>Rooms</span>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -185,37 +219,59 @@
     <section class="rooms-section spad">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="room-item">
-                        <img src="img/room/room-1.jpg" alt="">
-                        <div class="ri-text">
-                            <h4>Premium King Room</h4>
-                            <h3>159$<span>/Pernight</span></h3>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="r-o">Size:</td>
-                                        <td>30 ft</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Capacity:</td>
-                                        <td>Max persion 3</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Bed:</td>
-                                        <td>King Beds</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Services:</td>
-                                        <td>Wifi, Television, Bathroom,...</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <a href="#" class="primary-btn">More Details</a>
-                        </div>
-                    </div>
+                <?php
+                if (isset($horaires) && is_array($horaires)):
+                    foreach ($horaires as $horaire):
+                        ?>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="room-item">
+                                <img src="img/room/room-1.jpg" alt="logo-entreprise">
+                                <div class="ri-text">
+                                    <h4>
+                                        <?=  $horaire['nomEn'] ?>
+                                    </h4>
+                                    <h3>
+                                        <?=  $horaire['prix']  ?><span>/Per person</span>
+                                    </h3>
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td class="r-o">Departure hour:</td>
+                                                <td>
+                                                    <?=   $horaire['hr_dep']  ?>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="r-o">Arrival hour:</td>
+                                                <td>
+                                                    <?= $horaire['hr_arv']  ?>
+                                                </td>
+                                            </tr>
+                                            <!-- <tr>
+                                        <td class="r-o">Duration:</td>
+                                        <td>2h 15min</td>
+                                    </tr> -->
+                                            <tr>
+                                                <td class="r-o">Road:</td>
+                                                <td>
+                                                    <?=  $horaire['fk_vil_dep'] ?> ->
+                                                    <?=  $horaire['fk_vil_arv']  ?>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <a href="#" class="primary-btn">Select ></a>
+                                </div>
+
+                            </div>
+                            <?php
+                    endforeach;
+                else:
+                    echo '<p>No records found.</p>';
+                endif;
+                ?>
                 </div>
-                <div class="col-lg-4 col-md-6">
+                <!-- <div class="col-lg-4 col-md-6">
                     <div class="room-item">
                         <img src="img/room/room-2.jpg" alt="">
                         <div class="ri-text">
@@ -363,15 +419,15 @@
                             </table>
                             <a href="#" class="primary-btn">More Details</a>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-12">
+                    </div> -->
+                <!-- </div> -->
+                <!-- <div class="col-lg-12">
                     <div class="room-pagination">
                         <a href="#">1</a>
                         <a href="#">2</a>
                         <a href="#">Next <i class="fa fa-long-arrow-right"></i></a>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
@@ -386,14 +442,16 @@
                         <div class="ft-about">
                             <div class="logo">
                                 <a href="#">
-                                    <img src="img/footer-logo.png" alt="">
+                                    <!-- <img src="img/footer-logo.png" alt=""> -->
+                                    <h2 style="color:white">Smart Travel</h2>
                                 </a>
                             </div>
-                            <p>We inspire and reach millions of travelers<br /> across 90 local websites</p>
+                            <p>We inspire and serve millions of travelers through our user-friendly bus
+                                reservation platform</p>
                             <div class="fa-social">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
                                 <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-tripadvisor"></i></a>
+                                <!-- <a href="#"><i class="fa fa-tripadvisor"></i></a> -->
                                 <a href="#"><i class="fa fa-instagram"></i></a>
                                 <a href="#"><i class="fa fa-youtube-play"></i></a>
                             </div>
@@ -404,8 +462,8 @@
                             <h6>Contact Us</h6>
                             <ul>
                                 <li>(12) 345 67890</li>
-                                <li>info.colorlib@gmail.com</li>
-                                <li>856 Cordia Extension Apt. 356, Lake, United State</li>
+                                <li>smart_travel@gmail.com</li>
+                                <li>Safi, Morocco</li>
                             </ul>
                         </div>
                     </div>
@@ -434,9 +492,15 @@
                         </ul>
                     </div>
                     <div class="col-lg-5">
-                        <div class="co-text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
+                        <div class="co-text">
+                            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;
+                                <script>document.write(new Date().getFullYear());</script> All rights reserved | This
+                                template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a
+                                    href="https://colorlib.com" target="_blank">Colorlib</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

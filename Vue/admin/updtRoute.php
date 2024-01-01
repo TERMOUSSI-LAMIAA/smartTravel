@@ -24,18 +24,19 @@
 </head>
 
 <body>
-    <form method="POST" action="index.php?action=updtRoute" enctype="multipart/form-data" class="form-horizontal">
+    <form method="POST" action="index.php?action=updtRoute" enctype="multipart/form-data" class="form-horizontal"> 
+    <h2 class="text-center">Modifier Route</h2>
         <div class="form-group">
             <label for="vil_dep" class="control-label col-sm-2">Ville départ:</label>
             <div class="col-sm-10">
                 <select id="vil_dep" name="vil_dep" class="form-control" >
                     <?php foreach ($villes as $v): ?>
                         <?php if ($v->getNomVil() === $route->getVil_dep()) { ?>
-                            <option selected disabled>
+                            <option value="<?= $v->getNomVil() ?>" selected >
                                 <?= $v->getNomVil() ?>
                             </option>
                         <?php } else { ?>
-                            <option disabled>
+                            <option value="<?= $v->getNomVil() ?>" >
                                 <?= $v->getNomVil() ?>
                             </option>
                         <?php } ?>
@@ -50,11 +51,11 @@
                 <select id="vil_arv" name="vil_arv" class="form-control" >
                     <?php foreach ($villes as $v): ?>
                         <?php if ($v->getNomVil() === $route->getVil_arv()) { ?>
-                            <option selected disabled>
+                            <option  value="<?= $v->getNomVil() ?>"  selected >
                                 <?= $v->getNomVil() ?>
                             </option>
                         <?php } else { ?>
-                            <option disabled>
+                            <option  value="<?= $v->getNomVil() ?>" >
                                 <?= $v->getNomVil() ?>
                             </option>
                         <?php } ?>

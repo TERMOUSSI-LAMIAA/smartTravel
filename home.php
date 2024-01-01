@@ -59,8 +59,8 @@
         </div>
         <nav class="mainmenu mobile-menu">
             <ul>
-                <li class="active"><a href="./index.html">Home</a></li>
-                <li><a href="./rooms.html">Rooms</a></li>
+                <li class="active"><a href="index.php?action=homePage">Home</a></li>
+                <!-- <li><a href="rooms.html">Rooms</a></li>
                 <li><a href="./about-us.html">About Us</a></li>
                 <li><a href="./pages.html">Pages</a>
                     <ul class="dropdown">
@@ -71,7 +71,7 @@
                     </ul>
                 </li>
                 <li><a href="./blog.html">News</a></li>
-                <li><a href="./contact.html">Contact</a></li>
+                <li><a href="./contact.html">Contact</a></li> -->
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -82,8 +82,8 @@
             <a href="#"><i class="fa fa-instagram"></i></a>
         </div>
         <ul class="top-widget">
-            <li><i class="fa fa-phone"></i> (12) 345 67890</li>
-            <li><i class="fa fa-envelope"></i> info.colorlib@gmail.com</li>
+            <li><i class="fa fa-phone"></i> (+212) 741982269</li>
+            <li><i class="fa fa-envelope"></i> smart_travel@gmail.com</li>
         </ul>
     </div>
     <!-- Offcanvas Menu Section End -->
@@ -95,7 +95,7 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <ul class="tn-left">
-                            <li><i class="fa fa-phone"></i> (+212) 771652243</li>
+                            <li><i class="fa fa-phone"></i> (+212) 741982269</li>
                             <li><i class="fa fa-envelope"></i> smart_travel@gmail.com</li>
                         </ul>
                     </div>
@@ -104,7 +104,7 @@
                             <div class="top-social">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
                                 <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-tripadvisor"></i></a>
+                                <!-- <a href="#"><i class="fa fa-tripadvisor"></i></a> -->
                                 <a href="#"><i class="fa fa-instagram"></i></a>
                             </div>
                             <a href="#" class="bk-btn">Booking Now</a>
@@ -139,7 +139,7 @@
                             <nav class="mainmenu">
                                 <ul>
                                     <li class="active"><a href="./index.html">Home</a></li>
-                                    <li><a href="./rooms.html">Rooms</a></li>
+                                    <!-- <li><a href="./rooms.html">Rooms</a></li>
                                     <li><a href="./about-us.html">About Us</a></li>
                                     <li><a href="./pages.html">Pages</a>
                                         <ul class="dropdown">
@@ -150,7 +150,7 @@
                                         </ul>
                                     </li>
                                     <li><a href="./blog.html">News</a></li>
-                                    <li><a href="./contact.html">Contact</a></li>
+                                    <li><a href="./contact.html">Contact</a></li> -->
                                 </ul>
                             </nav>
                             <div class="nav-right search-switch">
@@ -179,11 +179,11 @@
                 <div class="col-xl-4 col-lg-5 offset-xl-2 offset-lg-1">
                     <div class="booking-form">
                         <h3>Booking Your Bus</h3>
-                        <form action="process_booking.php" method="post">
+                        <form action="index.php?action=mainSearch" method="post">
                             <div class="select-option">
-                                <label for="departure-city">Departure City:</label>
-                                <select id="departure-city" name="departure-city">
-                                <?php foreach ($villes as $ville) { ?>
+                                <label for="fk_vil_dep">Departure City:</label>
+                                <select id="fk_vil_dep" name="fk_vil_dep">
+                                    <?php foreach ($villes as $ville) { ?>
                                         <option value="<?= $ville->getNomVil(); ?>">
                                             <?= $ville->getNomVil(); ?>
                                         </option>
@@ -191,8 +191,8 @@
                                 </select>
                             </div>
                             <div class="select-option">
-                                <label for="destination-city">Destination City:</label>
-                                <select id="destination-city" name="destination-city">
+                                <label for="fk_vil_arv">Destination City:</label>
+                                <select id="fk_vil_arv" name="fk_vil_arv">
                                     <?php foreach ($villes as $ville) { ?>
                                         <option value="<?= $ville->getNomVil(); ?>">
                                             <?= $ville->getNomVil(); ?>
@@ -201,8 +201,8 @@
                                 </select>
                             </div>
                             <div class="check-date">
-                                <label for="travel-date">Date of Travel:</label>
-                                <input type="text" class="date-input" id="travel-date" name="travel-date">
+                                <label for="date_">Date of Travel:</label>
+                                <input type="text" class="date-input" id="date_" name="date_">
                                 <i class="icon_calendar"></i>
                             </div>
                             <div class="select-option">
@@ -215,7 +215,7 @@
                                     ?>
                                 </select>
                             </div>
-                            <button type="submit">search</button>
+                            <button type="submit">Search</button>
                         </form>
                     </div>
                 </div>
@@ -479,10 +479,9 @@
                 <div class="col-lg-8 offset-lg-2">
                     <div class="testimonial-slider owl-carousel">
                         <div class="ts-item">
-                            <p>After a construction project took longer than expected, my husband, my daughter and I
-                                needed a place to stay for a few nights. As a Chicago resident, we know a lot about our
-                                city, neighborhood and the types of housing options available and absolutely love our
-                                vacation at Sona Hotel.</p>
+                            <p>My recent bus trip was fantastic, and it all started with the easy booking process on
+                                this website. The buses were comfortable, and the journey was smooth. Will definitely
+                                use this service again!</p>
                             <div class="ti-author">
                                 <div class="rating">
                                     <i class="icon_star"></i>
@@ -491,15 +490,13 @@
                                     <i class="icon_star"></i>
                                     <i class="icon_star-half_alt"></i>
                                 </div>
-                                <h5> - Alexander Vasquez</h5>
+                                <h5> - Meryem</h5>
                             </div>
-                            <img src="img/testimonial-logo.png" alt="">
+                            <!-- <img src="img/testimonial-logo.png" alt=""> -->
                         </div>
                         <div class="ts-item">
-                            <p>After a construction project took longer than expected, my husband, my daughter and I
-                                needed a place to stay for a few nights. As a Chicago resident, we know a lot about our
-                                city, neighborhood and the types of housing options available and absolutely love our
-                                vacation at Sona Hotel.</p>
+                            <p>The detailed information about each bus route, including schedules, helped me choose the
+                                perfect option for my trip. The transparency in information is truly appreciated.</p>
                             <div class="ti-author">
                                 <div class="rating">
                                     <i class="icon_star"></i>
@@ -508,9 +505,9 @@
                                     <i class="icon_star"></i>
                                     <i class="icon_star-half_alt"></i>
                                 </div>
-                                <h5> - Alexander Vasquez</h5>
+                                <h5> - Ryad</h5>
                             </div>
-                            <img src="img/testimonial-logo.png" alt="">
+                            <!-- <img src="img/testimonial-logo.png" alt=""> -->
                         </div>
                     </div>
                 </div>
@@ -520,7 +517,7 @@
     <!-- Testimonial Section End -->
 
     <!-- Blog Section Begin -->
-    <section class="blog-section spad">
+    <!-- <section class="blog-section spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -578,7 +575,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- Blog Section End -->
 
     <!-- Footer Section Begin -->
@@ -590,14 +587,16 @@
                         <div class="ft-about">
                             <div class="logo">
                                 <a href="#">
-                                    <img src="img/footer-logo.png" alt="">
+                                    <!-- <img src="img/footer-logo.png" alt=""> -->
+                                    <h2 style="color:white">Smart Travel</h2>
                                 </a>
                             </div>
-                            <p>We inspire and reach millions of travelers<br /> across 90 local websites</p>
+                            <p>We inspire and serve millions of travelers through our user-friendly bus
+                                reservation platform</p>
                             <div class="fa-social">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
                                 <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-tripadvisor"></i></a>
+                                <!-- <a href="#"><i class="fa fa-tripadvisor"></i></a> -->
                                 <a href="#"><i class="fa fa-instagram"></i></a>
                                 <a href="#"><i class="fa fa-youtube-play"></i></a>
                             </div>
@@ -609,7 +608,7 @@
                             <ul>
                                 <li>(12) 345 67890</li>
                                 <li>smart_travel@gmail.com</li>
-                                <li>856 Cordia Extension Apt. 356, Lake, United State</li>
+                                <li>Safi, Morocco</li>
                             </ul>
                         </div>
                     </div>

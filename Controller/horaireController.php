@@ -38,32 +38,33 @@ class contoller_horaire
 
 
     }
-    public function updtBusController()
+    public function updtHorController()///!!!!!!!!!!
     {
-        if (isset($_GET['immat'])) {
-            $immat = $_GET['immat'];
-            $entrepriseDAO = new EntrepriseDAO();
-            $entreprises = $entrepriseDAO->get_entreprise();
+        if (isset($_GET['idHor'])) {
+            $idHor = $_GET['idHor'];
+            $villeDAO = new VilleDAO();
+            $villes = $villeDAO->get_ville();
             $busDAO = new BusDAO();
-            $bus = $busDAO->getBusByImmat($immat);
-            include("Vue\admin\updtBus.php");
+            $buses = $busDAO->get_bus();
+            $horDAO=new HoraireDAO();
+            $hor=$horDAO->get_horaire(); 
+            include("Vue\admin\updtHoraire.php");    
         }
     }
 
-    public function updtBusControllerAction()
+    public function updtHorControllerAction()
     {
-        $busDAO = new BusDAO();
-        $busDAO->updateBus();
-        header('Location: index.php');
+        $horDAO = new HoraireDAO();
+        $horDAO->updateHoraire();
+        header('Location: index.php?action=showHoraire');
         exit;
     }
-
-    public function deleteBusControllerAction()
+    public function deleteHorControllerAction()
     {
-        $immat = $_GET["immat"];
-        $busDAO = new BusDAO();
-        $busDAO->deleteBus($immat);
-        header('Location: index.php');
+        $idHor = $_GET["idHor"];
+        $horDAO = new HoraireDAO();
+        $horDAO->deleteHoraire($idHor);
+        header('Location: index.php?action=showHoraire');
         exit;
     }
 

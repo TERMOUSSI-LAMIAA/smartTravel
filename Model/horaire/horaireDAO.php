@@ -25,7 +25,6 @@ class HoraireDAO
     public function insert_horaire()
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // Get values from $_POST
             $hr_dep = $_POST["hr_dep"];
             $hr_arv = $_POST["hr_arv"];
             $sieg_dispo = $_POST["sieg_dispo"];
@@ -58,10 +57,138 @@ class HoraireDAO
                 return false;
             }
         }
-
-
-
     }
+    public function updateHoraire()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $idHor = $_POST["id"];
+            $hr_dep = $_POST["hr_dep"];
+            $hr_arv = $_POST["hr_arv"];
+            $sieg_dispo = $_POST["sieg_dispo"];
+            $prix = $_POST["prix"];
+            $date_ = $_POST["date_"];
+            $fk_immat = $_POST["fk_immat"];
+            $fk_vil_dep = $_POST["fk_vil_dep"];
+            $fk_vil_arv = $_POST["fk_vil_arv"];
+            try {
+                $query = "update  horaire set hr_dep=:hr_dep, hr_arv=:hr_arv, sieg_dispo=:sieg_dispo, prix=:prix,date_=:date_,fk_immat=:fk_immat,fk_vil_dep=:fk_vil_dep,fk_vil_arv=:fk_vil_arv where idHor=:idHor";
+                $stmt = $this->db->prepare($query);
+
+                $stmt->bindParam(':idHor', $idHor);
+                $stmt->bindParam(':hr_dep', $hr_dep);
+                $stmt->bindParam(':hr_arv', $hr_arv);
+                $stmt->bindParam(':sieg_dispo', $sieg_dispo);
+                $stmt->bindParam(':prix', $prix);
+                $stmt->bindParam(':date_', $date_);
+                $stmt->bindParam(':fk_immat', $fk_immat);
+                $stmt->bindParam(':fk_vil_dep', $fk_vil_dep);
+                $stmt->bindParam(':fk_vil_arv', $fk_vil_arv);
+                $stmt->execute();
+                return true;
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+                return false;
+            }
+        }
+    }
+    function deleteHoraire($idHor)
+    {
+        try {
+            $query = "delete from horaire where idHor=:idHor ";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':idHor', $idHor);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return false;
+        }
+    }
+    public function search_Horaire($fk_vil_dep, $fk_vil_arv, $date_)
+    {
+        $query = "SELECT horaire.*, route.duree,entreprise.nomEn, entreprise.imgEn AS entrepImage
+        FROM horaire
+        INNER JOIN route ON horaire.fk_vil_dep = route.vil_dep and horaire.fk_vil_arv = route.vil_arv
+        INNER JOIN Bus ON horaire.fk_immat= Bus.immat
+        INNER JOIN entreprise ON Bus.fk_idEn = entreprise.idEn
+        WHERE horaire.date_ = :date_
+        AND horaire.fk_vil_dep = :fk_vil_dep
+        AND horaire.fk_vil_arv = :fk_vil_arv";
+        // $query = "select * from horaire where  horaire.date_ = :date_ AND horaire.fk_vil_dep = :fk_vil_dep  AND horaire.fk_vil_arv = :fk_vil_arv";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':date_', $date_, PDO::PARAM_STR);
+        $stmt->bindParam(':fk_vil_arv', $fk_vil_arv, PDO::PARAM_STR);
+        $stmt->bindParam(':fk_vil_dep', $fk_vil_dep, PDO::PARAM_STR);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $horaires = array();
+        foreach ($result as $row) {
+            // $horaires[] = [
+            //     'idHor' => $row['idHor'],
+            //     'hr_dep' => $row['hr_dep'],
+            //     'hr_arv' => $row['hr_arv'],
+            //     'sieg_dispo' => $row['sieg_dispo'],
+            //     'prix' => $row['prix'],
+            //     'date_' => $row['date_'],
+            //     'fk_immat' => $row['fk_immat'],
+            //     'fk_vil_dep' => $row['fk_vil_dep'],
+            //     'fk_vil_arv' => $row['fk_vil_arv'],
+            //     'duree' => $row['duree'],
+            //     'nomEn' => $row['nomEn'],
+            //     'entrepImage' => $row['entrepImage']
+            // ];
+
+        }
+        $horaires[] = [
+            'idHor' => 5,
+            'hr_dep' => '20:15',
+            'hr_arv' => '21:45',
+            'sieg_dispo' => 50,
+            'prix' => 25.99,
+            'date_' => '2024-01-15',
+            'fk_immat' => 'ABC123',
+            'fk_vil_dep' => 'fes',
+            'fk_vil_arv' => 'nador',
+            'duree' => '1h30m',
+            'nomEn' => 'Test Company',
+            'entrepImage' => 'company_logo.jpg',
+            // Add other columns as needed
+        ];
+        $horaires[] = [
+            'idHor' => 5,
+            'hr_dep' => '20:15',
+            'hr_arv' => '21:45',
+            'sieg_dispo' => 50,
+            'prix' => 25.99,
+            'date_' => '2024-01-15',
+            'fk_immat' => 'ABC123',
+            'fk_vil_dep' => 'fes',
+            'fk_vil_arv' => 'nador',
+            'duree' => '1h30m',
+            'nomEn' => 'Test Company',
+            'entrepImage' => 'company_logo.jpg',
+        ];
+        var_dump($result);
+        // var_dump($horaires);
+        return $horaires;
+    }
+
+
+
+
+
+    // public function get_horaire_for_search($depart, $arrive, $date)
+    // {
+    //     $sql = "SELECT * FROM horaire WHERE departure_city = ? AND destination_city = ? AND `date` = ?";
+    //     $stmt = $this->db->prepare($sql);
+    //     $stmt->execute(array($depart, $arrive, $date));
+    //     $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+    //     $resultObj = array();
+    //     foreach ($result as $row) {
+    //         $resultObj[] = new Horaire($row->departure_time, $row->destination_time, $row->matricule, $row->date, $row->available_seats, $row->departure_city, $row->destination_city);
+    //     }
+    //     return $resultObj;
+    // }
 }
 
 
