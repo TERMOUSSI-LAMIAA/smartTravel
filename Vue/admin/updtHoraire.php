@@ -24,12 +24,12 @@
 </head>
 
 <body>
-    <form method="POST" action="index.php?action=addHoraire" enctype="multipart/form-data" class="form-horizontal">
+    <form method="POST" action="index.php?action=updtHoraire" enctype="multipart/form-data" class="form-horizontal">
         <h2 class="text-center">Update Horaire</h2>
         <div class="form-group">
             <label for="id" class="control-label col-sm-2">ID:</label>
             <div class="col-sm-10">
-                <input type="text" value="<?= $hor->getId() ?>" id="id" name="id" class="form-control" readonly>
+                <input type="text" value="<?= $hor->getId()?>" id="id" name="id" class="form-control" readonly>
             </div>
         </div>
         <div class="form-group">

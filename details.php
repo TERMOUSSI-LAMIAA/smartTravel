@@ -171,31 +171,59 @@
     <section class="filter-section">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3">
-                    <div class="sidebar">
-                        <h3>Filter Options</h3>
-                        <!-- Add your filter options here -->
+                <div class="col-lg-12">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <!-- Filter by Entreprise -->
+                        <div class="form-group mr-2">
+                            <label for="entreprise" class="small">Entreprise:</label>
+                            <select class="form-control form-control-sm" id="entreprise">
+                                <?php foreach ($entreprises as $entreprise) { ?>
+                                    <option value="<?= $entreprise->getIdEn(); ?>">
+                                        <?= $entreprise->getNomEn(); ?>
+                                    </option>
+                                <?php } ?>
+                            </select>
+                        </div>
+
+                        <!-- Price Filter -->
+                        <div class="form-group mr-2">
+                            <form id="priceFilterForm">
+                                <div class="form-group mb-2">
+                                    <label for="minPrice" class="small">Minimum Price:</label>
+                                    <input type="number" class="form-control form-control-sm" id="minPrice"
+                                        name="minPrice" placeholder="Min price">
+                                </div>
+
+                                <div class="form-group mb-2">
+                                    <label for="maxPrice" class="small">Maximum Price:</label>
+                                    <input type="number" class="form-control form-control-sm" id="maxPrice"
+                                        name="maxPrice" placeholder="Max price">
+                                </div>
+
+                                <button type="button" class="btn btn-primary btn-sm">Filter</button>
+                            </form>
+                        </div>
+
+                        <!-- Filter by Horaire -->
                         <div class="form-group">
-                            <label for="departure">Departure City:</label>
-                            <select class="form-control" id="departure">
-                                <option value="safi">Safi</option>
-                                <option value="marrakech">Marrakech</option>
+                            <label for="horaire" class="small">Horaire:</label>
+                            <select class="form-control form-control-sm" id="horaire">
+                                <option value="">Morning (0h - 12h)</option>
+                                <option value="">Afternoon (12h - 17h)</option>
+                                <option value="">Evening (17h - 0h)</option>
                                 <!-- Add more options as needed -->
                             </select>
                         </div>
+
                         <!-- Add more filter options as needed -->
                     </div>
-                </div>
-                <div class="col-lg-9">
-                    <!-- Your existing content goes here -->
-                    <section class="rooms-section spad">
-                        <!-- ... (your existing content) ... -->
-                    </section>
                 </div>
             </div>
         </div>
     </section>
     <!-- Filter Section End -->
+
+
 
     <!-- Breadcrumb Section Begin -->
     <div class="breadcrumb-section">
@@ -220,217 +248,66 @@
         <div class="container">
             <div class="row">
                 <?php
+                // Check if $horaires is set and is an array
                 if (isset($horaires) && is_array($horaires)):
+                    // Loop through each item in $horaires
                     foreach ($horaires as $horaire):
                         ?>
+                        <!-- Room item div for each $horaire -->
                         <div class="col-lg-4 col-md-6">
                             <div class="room-item">
-                                <img src="img/room/room-1.jpg" alt="logo-entreprise">
+                                <img src="data:image/jpg;base64,<?= $horaire['base64Image'] ?>" alt="logo-entreprise">
                                 <div class="ri-text">
                                     <h4>
-                                        <?=  $horaire['nomEn'] ?>
+                                        <?= $horaire['nomEn'] ?>
                                     </h4>
                                     <h3>
-                                        <?=  $horaire['prix']  ?><span>/Per person</span>
+                                        <?= $horaire['prix'] ?> DH<span>/Per person</span>
                                     </h3>
                                     <table>
                                         <tbody>
                                             <tr>
+                                                <td class="r-o">Date:</td>
+                                                <td>
+                                                    <?= $horaire['date_'] ?>
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <td class="r-o">Departure hour:</td>
                                                 <td>
-                                                    <?=   $horaire['hr_dep']  ?>
+                                                    <?= $horaire['hr_dep'] ?>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="r-o">Arrival hour:</td>
                                                 <td>
-                                                    <?= $horaire['hr_arv']  ?>
+                                                    <?= $horaire['hr_arv'] ?>
                                                 </td>
                                             </tr>
-                                            <!-- <tr>
-                                        <td class="r-o">Duration:</td>
-                                        <td>2h 15min</td>
-                                    </tr> -->
+                                            <!-- Additional details if needed -->
                                             <tr>
                                                 <td class="r-o">Road:</td>
                                                 <td>
-                                                    <?=  $horaire['fk_vil_dep'] ?> ->
-                                                    <?=  $horaire['fk_vil_arv']  ?>
+                                                    <?= $horaire['fk_vil_dep'] ?> ->
+                                                    <?= $horaire['fk_vil_arv'] ?>
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                     <a href="#" class="primary-btn">Select ></a>
                                 </div>
-
                             </div>
-                            <?php
+                        </div>
+                        <?php
                     endforeach;
                 else:
                     echo '<p>No records found.</p>';
                 endif;
                 ?>
-                </div>
-                <!-- <div class="col-lg-4 col-md-6">
-                    <div class="room-item">
-                        <img src="img/room/room-2.jpg" alt="">
-                        <div class="ri-text">
-                            <h4>Deluxe Room</h4>
-                            <h3>159$<span>/Pernight</span></h3>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="r-o">Size:</td>
-                                        <td>30 ft</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Capacity:</td>
-                                        <td>Max persion 5</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Bed:</td>
-                                        <td>King Beds</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Services:</td>
-                                        <td>Wifi, Television, Bathroom,...</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <a href="#" class="primary-btn">More Details</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="room-item">
-                        <img src="img/room/room-3.jpg" alt="">
-                        <div class="ri-text">
-                            <h4>Double Room</h4>
-                            <h3>159$<span>/Pernight</span></h3>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="r-o">Size:</td>
-                                        <td>30 ft</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Capacity:</td>
-                                        <td>Max persion 2</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Bed:</td>
-                                        <td>King Beds</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Services:</td>
-                                        <td>Wifi, Television, Bathroom,...</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <a href="#" class="primary-btn">More Details</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="room-item">
-                        <img src="img/room/room-4.jpg" alt="">
-                        <div class="ri-text">
-                            <h4>Luxury Room</h4>
-                            <h3>159$<span>/Pernight</span></h3>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="r-o">Size:</td>
-                                        <td>30 ft</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Capacity:</td>
-                                        <td>Max persion 1</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Bed:</td>
-                                        <td>King Beds</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Services:</td>
-                                        <td>Wifi, Television, Bathroom,...</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <a href="#" class="primary-btn">More Details</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="room-item">
-                        <img src="img/room/room-5.jpg" alt="">
-                        <div class="ri-text">
-                            <h4>Room With View</h4>
-                            <h3>159$<span>/Pernight</span></h3>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="r-o">Size:</td>
-                                        <td>30 ft</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Capacity:</td>
-                                        <td>Max persion 1</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Bed:</td>
-                                        <td>King Beds</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Services:</td>
-                                        <td>Wifi, Television, Bathroom,...</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <a href="#" class="primary-btn">More Details</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="room-item">
-                        <img src="img/room/room-6.jpg" alt="">
-                        <div class="ri-text">
-                            <h4>Small View</h4>
-                            <h3>159$<span>/Pernight</span></h3>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="r-o">Size:</td>
-                                        <td>30 ft</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Capacity:</td>
-                                        <td>Max persion 2</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Bed:</td>
-                                        <td>King Beds</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Services:</td>
-                                        <td>Wifi, Television, Bathroom,...</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <a href="#" class="primary-btn">More Details</a>
-                        </div>
-                    </div> -->
-                <!-- </div> -->
-                <!-- <div class="col-lg-12">
-                    <div class="room-pagination">
-                        <a href="#">1</a>
-                        <a href="#">2</a>
-                        <a href="#">Next <i class="fa fa-long-arrow-right"></i></a>
-                    </div>
-                </div> -->
             </div>
         </div>
     </section>
+
     <!-- Rooms Section End -->
 
     <!-- Footer Section Begin -->

@@ -34,6 +34,9 @@ class contoller_Home
             $fk_vil_dep = $_POST["fk_vil_dep"];
             $fk_vil_arv = $_POST["fk_vil_arv"];
             $date_ = $_POST["date_"];
+
+       
+
             $horDAO = new HoraireDAO();
             $horaires = $horDAO->search_Horaire($fk_vil_dep, $fk_vil_arv, $date_);
             if (!empty($horaires)) {

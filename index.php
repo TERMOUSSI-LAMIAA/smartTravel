@@ -9,6 +9,7 @@ include "Controller/homeController.php";
 
 $controllerBus = new contoller_bus();
 $controllerHome = new contoller_Home();
+// $controllerDetail = new contoller_details();
 
 
 $controllerRoute = new contoller_route();
@@ -79,7 +80,8 @@ if (isset($_GET['action'])) {
         case 'mainSearch':
             $controllerHome->getSearchedHoraireController();
             break;
-
+        // case 'details':
+        //     $controllerDetail->getEntrepDetailController();
     }
 
 } else {

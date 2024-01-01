@@ -106,6 +106,8 @@ class HoraireDAO
     }
     public function search_Horaire($fk_vil_dep, $fk_vil_arv, $date_)
     {
+        // $date = date('Y-m-d', strtotime($_POST["date_"]));
+        $date = date('Y-m-d', strtotime($date_));
         $query = "SELECT horaire.*, route.duree,entreprise.nomEn, entreprise.imgEn AS entrepImage
         FROM horaire
         INNER JOIN route ON horaire.fk_vil_dep = route.vil_dep and horaire.fk_vil_arv = route.vil_arv
@@ -116,79 +118,37 @@ class HoraireDAO
         AND horaire.fk_vil_arv = :fk_vil_arv";
         // $query = "select * from horaire where  horaire.date_ = :date_ AND horaire.fk_vil_dep = :fk_vil_dep  AND horaire.fk_vil_arv = :fk_vil_arv";
         $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':date_', $date_, PDO::PARAM_STR);
+        $stmt->bindParam(':date_', $date, PDO::PARAM_STR);
         $stmt->bindParam(':fk_vil_arv', $fk_vil_arv, PDO::PARAM_STR);
         $stmt->bindParam(':fk_vil_dep', $fk_vil_dep, PDO::PARAM_STR);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $horaires = array();
         foreach ($result as $row) {
-            // $horaires[] = [
-            //     'idHor' => $row['idHor'],
-            //     'hr_dep' => $row['hr_dep'],
-            //     'hr_arv' => $row['hr_arv'],
-            //     'sieg_dispo' => $row['sieg_dispo'],
-            //     'prix' => $row['prix'],
-            //     'date_' => $row['date_'],
-            //     'fk_immat' => $row['fk_immat'],
-            //     'fk_vil_dep' => $row['fk_vil_dep'],
-            //     'fk_vil_arv' => $row['fk_vil_arv'],
-            //     'duree' => $row['duree'],
-            //     'nomEn' => $row['nomEn'],
-            //     'entrepImage' => $row['entrepImage']
-            // ];
+            $base64Image = base64_encode($row['entrepImage']);
+
+            $horaires[] = [
+                'idHor' => $row['idHor'],
+                'hr_dep' => $row['hr_dep'],
+                'hr_arv' => $row['hr_arv'],
+                'sieg_dispo' => $row['sieg_dispo'],
+                'prix' => $row['prix'],
+                'date_' => $row['date_'],
+                'fk_immat' => $row['fk_immat'],
+                'fk_vil_dep' => $row['fk_vil_dep'],
+                'fk_vil_arv' => $row['fk_vil_arv'],
+                'duree' => $row['duree'],
+                'nomEn' => $row['nomEn'],
+                'base64Image' => $base64Image,
+            ];
 
         }
-        $horaires[] = [
-            'idHor' => 5,
-            'hr_dep' => '20:15',
-            'hr_arv' => '21:45',
-            'sieg_dispo' => 50,
-            'prix' => 25.99,
-            'date_' => '2024-01-15',
-            'fk_immat' => 'ABC123',
-            'fk_vil_dep' => 'fes',
-            'fk_vil_arv' => 'nador',
-            'duree' => '1h30m',
-            'nomEn' => 'Test Company',
-            'entrepImage' => 'company_logo.jpg',
-            // Add other columns as needed
-        ];
-        $horaires[] = [
-            'idHor' => 5,
-            'hr_dep' => '20:15',
-            'hr_arv' => '21:45',
-            'sieg_dispo' => 50,
-            'prix' => 25.99,
-            'date_' => '2024-01-15',
-            'fk_immat' => 'ABC123',
-            'fk_vil_dep' => 'fes',
-            'fk_vil_arv' => 'nador',
-            'duree' => '1h30m',
-            'nomEn' => 'Test Company',
-            'entrepImage' => 'company_logo.jpg',
-        ];
-        var_dump($result);
+       
+        // var_dump($result);
         // var_dump($horaires);
         return $horaires;
     }
 
-
-
-
-
-    // public function get_horaire_for_search($depart, $arrive, $date)
-    // {
-    //     $sql = "SELECT * FROM horaire WHERE departure_city = ? AND destination_city = ? AND `date` = ?";
-    //     $stmt = $this->db->prepare($sql);
-    //     $stmt->execute(array($depart, $arrive, $date));
-    //     $result = $stmt->fetchAll(PDO::FETCH_OBJ);
-    //     $resultObj = array();
-    //     foreach ($result as $row) {
-    //         $resultObj[] = new Horaire($row->departure_time, $row->destination_time, $row->matricule, $row->date, $row->available_seats, $row->departure_city, $row->destination_city);
-    //     }
-    //     return $resultObj;
-    // }
 }
 
 
