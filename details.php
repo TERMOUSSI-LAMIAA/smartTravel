@@ -173,47 +173,59 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="d-flex justify-content-between align-items-center">
-                        <!-- Filter by Entreprise -->
                         <div class="form-group mr-2">
-                            <label for="entreprise" class="small">Entreprise:</label>
-                            <select class="form-control form-control-sm" id="entreprise">
-                                <?php foreach ($entreprises as $entreprise) { ?>
-                                    <option value="<?= $entreprise->getIdEn(); ?>">
-                                        <?= $entreprise->getNomEn(); ?>
-                                    </option>
-                                <?php } ?>
-                            </select>
+                            <div class="row">
+                                <label for="entreprise"
+                                    class="col-sm-12 col-form-label text-right small">Entreprise</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <select class="form-control form-control-sm" id="entreprise">
+                                        <?php foreach ($entreprises as $entreprise) { ?>
+                                            <option value="<?= $entreprise->getIdEn(); ?>">
+                                                <?= $entreprise->getNomEn(); ?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <a href="javascript:void(0);" onclick="filterByEntreprise();"
+                                        class="btn btn-primary btn-sm">Filter</a>
+                                </div>
+                            </div>
                         </div>
-
                         <!-- Price Filter -->
                         <div class="form-group mr-2">
                             <form id="priceFilterForm">
-                                <div class="form-group mb-2">
-                                    <label for="minPrice" class="small">Minimum Price:</label>
-                                    <input type="number" class="form-control form-control-sm" id="minPrice"
-                                        name="minPrice" placeholder="Min price">
-                                </div>
-
                                 <div class="form-group mb-2">
                                     <label for="maxPrice" class="small">Maximum Price:</label>
                                     <input type="number" class="form-control form-control-sm" id="maxPrice"
                                         name="maxPrice" placeholder="Max price">
                                 </div>
-
-                                <button type="button" class="btn btn-primary btn-sm">Filter</button>
+                                <a href="javascript:void(0);" onclick="filterByPrice();"
+                                    class="btn btn-primary btn-sm">Filter</a>
                             </form>
                         </div>
 
                         <!-- Filter by Horaire -->
                         <div class="form-group">
-                            <label for="horaire" class="small">Horaire:</label>
-                            <select class="form-control form-control-sm" id="horaire">
-                                <option value="">Morning (0h - 12h)</option>
-                                <option value="">Afternoon (12h - 17h)</option>
-                                <option value="">Evening (17h - 0h)</option>
-                                <!-- Add more options as needed -->
-                            </select>
+                            <div class="row">
+                                <label for="horaire" class="col-sm-12 col-form-label text-right small">Horaire</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <select class="form-control form-control-sm" id="horaire">
+                                        <option value="morning">Morning (0h - 12h)</option>
+                                        <option value="afternoon">Afternoon (12h - 17h)</option>
+                                        <option value="evening">Evening (17h - 0h)</option>
+                                        <!-- Add more options as needed -->
+                                    </select><br>
+                                    <a href="javascript:void(0);" onclick="filterByHoraire();"
+                                        class="btn btn-primary btn-sm">Filter</a>
+                                </div>
+                            </div>
                         </div>
+
 
                         <!-- Add more filter options as needed -->
                     </div>
@@ -405,6 +417,25 @@
     <script src="js/jquery.slicknav.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+
+    <script>
+        function filterByEntreprise() {
+            var selectedEntreprise = document.getElementById('entreprise');
+            var selectedIdEn = selectedEntreprise.options[selectedEntreprise.selectedIndex].value;
+            window.location.href = 'index.php?action=entrepFilter&idEn=' + selectedIdEn;
+        }
+
+        function filterByPrice() {
+            var maxPrice = document.getElementById('maxPrice').value;
+            window.location.href = 'index.php?action=priceFilter&maxprice=' + maxPrice;
+        }
+        function filterByHoraire() {
+            var selectedHoraire = document.getElementById('horaire');
+            var selectedValue = selectedHoraire.options[selectedHoraire.selectedIndex].value;
+            window.location.href = 'index.php?action=horaireFilter&hor=' + selectedValue;
+        }
+
+    </script>
 </body>
 
 </html>

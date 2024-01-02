@@ -21,6 +21,21 @@ class HoraireDAO
         }
         return $horaires;
     }
+    public function get_horairebyID($idHor)
+    {
+        $query = "SELECT * FROM horaire WHERE idHor = :idHor";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(":idHor", $idHor, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if ($result) {
+            return new Horaire($result["idHor"], $result["hr_dep"], $result["hr_arv"], $result["sieg_dispo"], $result["prix"], $result["date_"], $result["fk_immat"], $result["fk_vil_dep"], $result["fk_vil_arv"]);
+        } else {
+            return null;
+        }
+    }
 
     public function insert_horaire()
     {
@@ -104,7 +119,7 @@ class HoraireDAO
             return false;
         }
     }
-    public function search_Horaire($fk_vil_dep, $fk_vil_arv, $date_)
+    public function search_Horaire($fk_vil_dep, $fk_vil_arv, $date_, $idEn = "",$maxprice="",$hor="")
     {
         // $date = date('Y-m-d', strtotime($_POST["date_"]));
         $date = date('Y-m-d', strtotime($date_));
@@ -116,11 +131,25 @@ class HoraireDAO
         WHERE horaire.date_ = :date_
         AND horaire.fk_vil_dep = :fk_vil_dep
         AND horaire.fk_vil_arv = :fk_vil_arv";
-        // $query = "select * from horaire where  horaire.date_ = :date_ AND horaire.fk_vil_dep = :fk_vil_dep  AND horaire.fk_vil_arv = :fk_vil_arv";
+        if (!empty($idEn)) {
+            $query .= " AND entreprise.idEn = :idEn";
+        }
+        if (!empty($maxprice)) {
+            $query .= " AND horaire.prix <= :maxprice";
+        }
+        if (!empty($hor) && $hor == "morning")  {
+            $query .=" AND TIME(horaire.hr_dep) >= '00:00'  and TIME(horaire.hr_arv) <= '12:00'";
+        }
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':date_', $date, PDO::PARAM_STR);
         $stmt->bindParam(':fk_vil_arv', $fk_vil_arv, PDO::PARAM_STR);
         $stmt->bindParam(':fk_vil_dep', $fk_vil_dep, PDO::PARAM_STR);
+        if (!empty($idEn)) {
+            $stmt->bindParam(':idEn', $idEn, PDO::PARAM_INT);
+        }
+        if (!empty($maxprice)) {
+            $stmt->bindParam(':maxprice', $maxprice, PDO::PARAM_INT);
+        }
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $horaires = array();
@@ -143,11 +172,52 @@ class HoraireDAO
             ];
 
         }
-       
+
         // var_dump($result);
         // var_dump($horaires);
         return $horaires;
     }
+    // public function get_horaireByEntrep($fk_vil_dep, $fk_vil_arv, $date_,$idEn)
+    // {
+    //     $date = date('Y-m-d', strtotime($date_));
+    //     var_dump($fk_vil_dep, $fk_vil_arv, $date, $idEn);
+    //     $query = "SELECT horaire.*, route.duree,entreprise.nomEn, entreprise.imgEn AS entrepImage
+    //     FROM horaire
+    //     INNER JOIN route ON horaire.fk_vil_dep = route.vil_dep and horaire.fk_vil_arv = route.vil_arv
+    //     INNER JOIN Bus ON horaire.fk_immat= Bus.immat
+    //     INNER JOIN entreprise ON Bus.fk_idEn = entreprise.idEn
+    //     WHERE horaire.date_ = :date_
+    //     AND horaire.fk_vil_dep = :fk_vil_dep
+    //     AND horaire.fk_vil_arv = :fk_vil_arv and entreprise.idEn=:idEn";
+    //     // $query = "SELECT horaire.*, route.duree,entreprise.nomEn, entreprise.imgEn AS entrepImages FROM horaire INNER JOIN route ON horaire.fk_vil_dep = route.vil_dep and horaire.fk_vil_arv = route.vil_arv INNER JOIN Bus ON horaire.fk_immat= Bus.immat  INNER JOIN entreprise ON Bus.fk_idEn = entreprise.idEn WHERE entreprise.idEn=:idEn";
+    //     $stmt = $this->db->prepare($query);
+    //     $stmt->bindParam(':date_', $date, PDO::PARAM_STR);
+    //     $stmt->bindParam(':fk_vil_arv', $fk_vil_arv, PDO::PARAM_STR);
+    //     $stmt->bindParam(':fk_vil_dep', $fk_vil_dep, PDO::PARAM_STR);
+    //     $stmt->bindParam(':idEn', $idEn, PDO::PARAM_INT);
+    //     $stmt->execute();
+    //     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    //     $horaires = array();
+    //     foreach ($result as $row) {
+    //         $base64Image = base64_encode($row['entrepImage']);
+
+    //         $horaires[] = [
+    //             'idHor' => $row['idHor'],
+    //             'hr_dep' => $row['hr_dep'],
+    //             'hr_arv' => $row['hr_arv'],
+    //             'sieg_dispo' => $row['sieg_dispo'],
+    //             'prix' => $row['prix'],
+    //             'date_' => $row['date_'],
+    //             'fk_immat' => $row['fk_immat'],
+    //             'fk_vil_dep' => $row['fk_vil_dep'],
+    //             'fk_vil_arv' => $row['fk_vil_arv'],
+    //             'duree' => $row['duree'],
+    //             'nomEn' => $row['nomEn'],
+    //             'base64Image' => $base64Image,
+    //         ];
+    //     }
+    //     return $horaires;
+    // }
 
 }
 

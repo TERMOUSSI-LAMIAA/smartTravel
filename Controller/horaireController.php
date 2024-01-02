@@ -38,7 +38,7 @@ class contoller_horaire
 
 
     }
-    public function updtHorController()///!!!!!!!!!!
+    public function updtHorController() ///!!!!!!!!!!
     {
         if (isset($_GET['idHor'])) {
             $idHor = $_GET['idHor'];
@@ -46,9 +46,10 @@ class contoller_horaire
             $villes = $villeDAO->get_ville();
             $busDAO = new BusDAO();
             $buses = $busDAO->get_bus();
-            $horDAO=new HoraireDAO();
-            $hor=$horDAO->get_horaire(); 
-            include("Vue\admin\updtHoraire.php");    
+            $horDAO = new HoraireDAO();
+            $hor = $horDAO->get_horairebyID($idHor);
+            
+            include("Vue\admin\updtHoraire.php");
         }
     }
 

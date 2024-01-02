@@ -29,7 +29,7 @@
         <div class="form-group">
             <label for="id" class="control-label col-sm-2">ID:</label>
             <div class="col-sm-10">
-                <input type="text" value="<?= $hor->getId()?>" id="id" name="id" class="form-control" readonly>
+                <input type="text" value="<?= $hor->getIdHor()?>" id="id" name="id" class="form-control" readonly>
             </div>
         </div>
         <div class="form-group">

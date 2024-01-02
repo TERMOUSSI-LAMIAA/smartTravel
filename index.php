@@ -5,11 +5,12 @@ include "Controller/routeController.php";
 include "Controller/horaireController.php";
 include "Controller/entrepriseController.php";
 include "Controller/homeController.php";
+include "Controller/detailsController.php";
 
 
 $controllerBus = new contoller_bus();
 $controllerHome = new contoller_Home();
-// $controllerDetail = new contoller_details();
+$controllerDetail = new contoller_details();
 
 
 $controllerRoute = new contoller_route();
@@ -79,9 +80,14 @@ if (isset($_GET['action'])) {
             break;
         case 'mainSearch':
             $controllerHome->getSearchedHoraireController();
+
             break;
-        // case 'details':
-        //     $controllerDetail->getEntrepDetailController();
+        case 'entrepFilter':
+            $controllerDetail->filterController();
+            break;
+        case 'priceFilter':
+            $controllerDetail->filterController();
+            break;
     }
 
 } else {
