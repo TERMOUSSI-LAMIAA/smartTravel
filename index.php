@@ -88,6 +88,10 @@ if (isset($_GET['action'])) {
         case 'priceFilter':
             $controllerDetail->filterController();
             break;
+        // case 'entrepFilter':
+        case 'horaireFilter':
+            $controllerDetail->filterController();
+            break;
     }
 
 } else {

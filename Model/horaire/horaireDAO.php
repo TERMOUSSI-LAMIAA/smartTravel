@@ -29,7 +29,7 @@ class HoraireDAO
         $stmt->execute();
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+
         if ($result) {
             return new Horaire($result["idHor"], $result["hr_dep"], $result["hr_arv"], $result["sieg_dispo"], $result["prix"], $result["date_"], $result["fk_immat"], $result["fk_vil_dep"], $result["fk_vil_arv"]);
         } else {
@@ -119,9 +119,8 @@ class HoraireDAO
             return false;
         }
     }
-    public function search_Horaire($fk_vil_dep, $fk_vil_arv, $date_, $idEn = "",$maxprice="",$hor="")
+    public function search_Horaire($fk_vil_dep, $fk_vil_arv, $date_, $idEn = "", $maxprice = "", $hor = "")
     {
-        // $date = date('Y-m-d', strtotime($_POST["date_"]));
         $date = date('Y-m-d', strtotime($date_));
         $query = "SELECT horaire.*, route.duree,entreprise.nomEn, entreprise.imgEn AS entrepImage
         FROM horaire
@@ -137,9 +136,20 @@ class HoraireDAO
         if (!empty($maxprice)) {
             $query .= " AND horaire.prix <= :maxprice";
         }
-        if (!empty($hor) && $hor == "morning")  {
-            $query .=" AND TIME(horaire.hr_dep) >= '00:00'  and TIME(horaire.hr_arv) <= '12:00'";
+        if (!empty($hor)) {
+            switch ($hor) {
+                case "morning":
+                    $query .= " AND horaire.hr_dep between '00:00' AND '12:00'";
+                    break;
+                case "afternoon":
+                    $query .= " AND horaire.hr_dep between '12:00' AND '17:00'";
+                    break;
+                case "evening":
+                    $query .= " AND  horaire.hr_dep between '17:00' AND '23:59'";
+                    break;
+            }
         }
+        // var_dump($query);
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':date_', $date, PDO::PARAM_STR);
         $stmt->bindParam(':fk_vil_arv', $fk_vil_arv, PDO::PARAM_STR);
@@ -175,6 +185,7 @@ class HoraireDAO
 
         // var_dump($result);
         // var_dump($horaires);
+
         return $horaires;
     }
     // public function get_horaireByEntrep($fk_vil_dep, $fk_vil_arv, $date_,$idEn)

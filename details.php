@@ -189,10 +189,12 @@
                                     </select>
                                 </div>
                                 <div class="col-sm-2">
-                                    <a href="javascript:void(0);" onclick="filterByEntreprise();"
-                                        class="btn btn-primary btn-sm">Filter</a>
+                                    <button id="filterByEntreprise" class="btn btn-primary btn-sm">Filter</button>
                                 </div>
                             </div>
+                        </div>
+                        <div id="filteredData">
+                            <!-- Display the filtered data here -->
                         </div>
                         <!-- Price Filter -->
                         <div class="form-group mr-2">
@@ -202,8 +204,7 @@
                                     <input type="number" class="form-control form-control-sm" id="maxPrice"
                                         name="maxPrice" placeholder="Max price">
                                 </div>
-                                <a href="javascript:void(0);" onclick="filterByPrice();"
-                                    class="btn btn-primary btn-sm">Filter</a>
+                                <button type="button" id="priceFilter" class="btn btn-primary btn-sm">Filter</button>
                             </form>
                         </div>
 
@@ -220,8 +221,7 @@
                                         <option value="evening">Evening (17h - 0h)</option>
                                         <!-- Add more options as needed -->
                                     </select><br>
-                                    <a href="javascript:void(0);" onclick="filterByHoraire();"
-                                        class="btn btn-primary btn-sm">Filter</a>
+                                    <button id=filterByHoraire class="btn btn-primary btn-sm">Filter</button>
                                 </div>
                             </div>
                         </div>
@@ -258,10 +258,10 @@
     <!-- Rooms Section Begin -->
     <section class="rooms-section spad">
         <div class="container">
-            <div class="row">
+            <div class="row" id="search-results">
                 <?php
                 // Check if $horaires is set and is an array
-                if (isset($horaires) && is_array($horaires)):
+                if (isset($horaires) && is_array($horaires) && !empty($horaires)):
                     // Loop through each item in $horaires
                     foreach ($horaires as $horaire):
                         ?>
@@ -417,22 +417,116 @@
     <script src="js/jquery.slicknav.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
-
     <script>
-        function filterByEntreprise() {
-            var selectedEntreprise = document.getElementById('entreprise');
-            var selectedIdEn = selectedEntreprise.options[selectedEntreprise.selectedIndex].value;
-            window.location.href = 'index.php?action=entrepFilter&idEn=' + selectedIdEn;
-        }
+        // function filterByEntreprise() {
+        //     var selectedEntreprise = document.getElementById('entreprise');
+        //     var selectedIdEn = selectedEntreprise.options[selectedEntreprise.selectedIndex].value;
+        //     window.location.href = 'index.php?action=entrepFilter&idEn=' + selectedIdEn;
+        // }
 
-        function filterByPrice() {
-            var maxPrice = document.getElementById('maxPrice').value;
-            window.location.href = 'index.php?action=priceFilter&maxprice=' + maxPrice;
-        }
-        function filterByHoraire() {
-            var selectedHoraire = document.getElementById('horaire');
-            var selectedValue = selectedHoraire.options[selectedHoraire.selectedIndex].value;
-            window.location.href = 'index.php?action=horaireFilter&hor=' + selectedValue;
+        $(document).ready(function () {
+            $("#filterByEntreprise").click(function () {
+                showData({
+                    action: 'entrepFilter',
+                    idEn: $('#entreprise').val()
+                });
+            });
+
+            $("#priceFilter").click(function () {
+                showData({
+                    action: 'priceFilter',
+                    maxprice: $('#maxPrice').val()
+                });
+            });
+
+            $("#filterByHoraire").click(function () {
+                showData({
+                    action: 'horaireFilter',
+                    hor: $('#horaire').val()
+                });
+            });
+            //
+
+        });
+        // function filterByHoraire() {
+        //     var selectedHoraire = document.getElementById('horaire');
+        //     var selectedValue = selectedHoraire.options[selectedHoraire.selectedIndex].value;
+        //     window.location.href = 'index.php?action=horaireFilter&hor=' + selectedValue;
+        // }
+
+
+        function showData(data) {
+            $.ajax({
+                url: 'index.php',
+                method: 'GET',
+                data,
+                dataType: "JSON",
+                success: function (response) {
+                    let html = '';
+                    if (response.data.length > 0) {
+                        response.data.forEach(element => {
+                            console.log(element);
+                            html += `
+                                <div class="col-lg-4 col-md-6">
+                            <div class="room-item">
+                                <img src="data:image/jpg;base64,${element.base64Image}" alt="logo-entreprise">
+                                <div class="ri-text">
+                                    <h4>
+                                        ${element.nomEn}
+                                    </h4>
+                                    <h3>
+                                    ${element.prix} DH<span>/Per person</span>
+                                    </h3>
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td class="r-o">Date:</td>
+                                                <td>
+                                                ${element.date_}  
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="r-o">Departure hour:</td>
+                                                <td>
+                                                ${element.hr_dep}   
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="r-o">Arrival hour:</td>
+                                                <td>
+                                                ${element.hr_arv}   
+                                                </td>
+                                            </tr>
+                                            <!-- Additional details if needed -->
+                                            <tr>
+                                                <td class="r-o">Road:</td>
+                                                <td>
+                                                          ${element.fk_vil_dep}  ->
+                                                           ${element.fk_vil_arv} 
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <a href="#" class="primary-btn">Select ></a>
+                                </div>
+                            </div>
+                        </div>
+                                `;
+                        });
+
+                        
+
+                    }
+                    $("#search-results").html(html);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    // Handle error
+                    console.error('AJAX Error:', textStatus, errorThrown);
+
+                    // You can also access the response text for more details
+                    console.log('Response Text:', jqXHR.responseText);
+                }
+            });
         }
 
     </script>
