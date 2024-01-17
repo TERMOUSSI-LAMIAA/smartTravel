@@ -2,17 +2,15 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Bus Form</title>
+    <title>update bus</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/css/my_style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
-        body {
-            background-color: #f8f9fa;
-            padding: 20px;
-        }
-
-        .container {
+         .container {
             max-width: 400px;
             margin: 0 auto;
         }
@@ -24,6 +22,18 @@
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <h3>Smart Travel</h3>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="index.php?action=showBus">Bus</a></li>
+                <li><a href="index.php?action=showRoute">Route</a></li>
+                <li><a href="index.php?action=showHoraire">Horaire</a></li>
+            </ul>
+        </div>
+    </nav>
     <div class="container">
         <form action="index.php?action=updtBus" method="POST" enctype="multipart/form-data">
             <h2 class="text-center">Update Bus</h2>
@@ -54,7 +64,7 @@
                                 <?= $entreprise->getNomEn() ?>
                             </option>
                         <?php } else { ?>
-                            <option value="<?= $entreprise->getIdEn(); ?>" >
+                            <option value="<?= $entreprise->getIdEn(); ?>">
                                 <?= $entreprise->getNomEn() ?>
                             </option>
                         <?php } ?>
@@ -66,6 +76,17 @@
             </div>
         </form>
     </div>
+    <!-- Footer -->
+    <footer class="footer navbar-fixed-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>&copy; 2024 Smart Travel. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer -->
 </body>
 
 

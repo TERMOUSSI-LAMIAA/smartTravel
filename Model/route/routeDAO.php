@@ -30,11 +30,9 @@ class RouteDAO
             $dure = $_POST["dure"];
 
             try {
-                // Prepare the SQL statement
                 $query = "INSERT INTO route (vil_dep, vil_arv, dist, duree) VALUES (:vil_dep, :vil_arv, :dist, :dure)";
                 $stmt = $this->db->prepare($query);
 
-                // Bind parameters
                 $stmt->bindParam(':vil_dep', $vil_dep);
                 $stmt->bindParam(':vil_arv', $vil_arv);
                 $stmt->bindParam(':dist', $dist);
@@ -47,7 +45,6 @@ class RouteDAO
             }
         }
 
-        // Return false if the form is not submitted
         return false;
     }
 
@@ -76,16 +73,15 @@ class RouteDAO
             $dure = $_POST["dure"];
 
             try {
-                // Prepare the SQL statement
                 $query = "update route set dist=:dist, duree=:dure WHERE vil_arv=:vil_arv and   vil_dep=:vil_dep";
                 $stmt = $this->db->prepare($query);
-                // Bind parameters
+
                 $stmt->bindParam(':vil_dep', $vil_dep);
                 $stmt->bindParam(':vil_arv', $vil_arv);
                 $stmt->bindParam(':dist', $dist);
                 $stmt->bindParam(':dure', $dure);
                 $stmt->execute();
-                // Return true on success
+
                 return true;
             } catch (PDOException $e) {
                 echo "Error: " . $e->getMessage();

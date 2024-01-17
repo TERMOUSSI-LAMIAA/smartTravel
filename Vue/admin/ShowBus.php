@@ -5,38 +5,10 @@
     <title>Bootstrap Example</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/my_style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <style>
-        .navbar {
-            height: 50px;
-            background-color: #dfa974;
-        }
-
-        .navbar-header h3 {
-
-            margin-top: 10px;
-
-        }
-
-        /* Navbar Links */
-        .navbar-nav li a {
-            /* color: #ffffff; */
-            font-size: 16px;
-            /* Font size */
-            margin-right: 15px;
-            /* Adjust the right margin as needed */
-            margin-left: 40px;
-            /* Adjust the right margin as needed */
-        }
-
-        /* Change the color of the active link */
-        .navbar-nav li.active a {
-            /* color: #ffcc00; */
-        }
-    </style>
 
 </head>
 
@@ -99,6 +71,22 @@
             </table>
         </div>
     </div>
+    <!-- Footer -->
+    <footer class="footer navbar-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>&copy; 2024 Smart Travel. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer -->
+
+</body>
+
+</html>
+
 </body>
 
 </html>

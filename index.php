@@ -70,6 +70,9 @@ if (isset($_GET['action'])) {
         case 'updateHorShow':
             $controllerHoraire->updtHorController();
             break;
+        case 'updtHoraire':
+            $controllerHoraire->updtHorControllerAction();
+            break;
         case 'deleteHor':
             $controllerHoraire->deleteHorControllerAction();
         case 'admin':
@@ -80,7 +83,6 @@ if (isset($_GET['action'])) {
             break;
         case 'mainSearch':
             $controllerHome->getSearchedHoraireController();
-
             break;
         case 'entrepFilter':
             $controllerDetail->filterController();

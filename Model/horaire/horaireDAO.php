@@ -46,30 +46,31 @@ class HoraireDAO
             $prix = $_POST["prix"];
             $date_ = $_POST["date_"];
             $fk_immat = $_POST["fk_immat"];
-            $fk_vil_dep = $_POST["fk_vil_dep"];
-            $fk_vil_arv = $_POST["fk_vil_arv"];
-
+            if (isset($_POST['route'])) {
+                list($fk_vil_dep, $fk_vil_arv) = explode(',', $_POST['route']);
+            }
+            $error = "";
             try {
-                // Prepare the SQL statement
-                $query = "INSERT INTO horaire (hr_dep, hr_arv, sieg_dispo, prix,date_,fk_immat,fk_vil_dep,fk_vil_arv) VALUES (:hr_dep, :hr_arv, :sieg_dispo, :prix,:date_,:fk_immat,:fk_vil_dep,:fk_vil_arv)";
-                $stmt = $this->db->prepare($query);
-
-                // Bind parameters
-                $stmt->bindParam(':hr_dep', $hr_dep);
-                $stmt->bindParam(':hr_arv', $hr_arv);
-                $stmt->bindParam(':sieg_dispo', $sieg_dispo);
-                $stmt->bindParam(':prix', $prix);
-                $stmt->bindParam(':date_', $date_);
-                $stmt->bindParam(':fk_immat', $fk_immat);
-                $stmt->bindParam(':fk_vil_dep', $fk_vil_dep);
-                $stmt->bindParam(':fk_vil_arv', $fk_vil_arv);
-                $stmt->execute();
-                return true;
+                if ($this->isDuplicateEntry($hr_dep, $hr_arv, $date_, $fk_immat, $fk_vil_dep, $fk_vil_arv)) {
+                    $error = "Horaire is duplicated";
+                    return $error;
+                } else {
+                    $query = "INSERT INTO horaire (hr_dep, hr_arv, sieg_dispo, prix,date_,fk_immat,fk_vil_dep,fk_vil_arv) VALUES (:hr_dep, :hr_arv, :sieg_dispo, :prix,:date_,:fk_immat,:fk_vil_dep,:fk_vil_arv)";
+                    $stmt = $this->db->prepare($query);
+                    $stmt->bindParam(':hr_dep', $hr_dep);
+                    $stmt->bindParam(':hr_arv', $hr_arv);
+                    $stmt->bindParam(':sieg_dispo', $sieg_dispo);
+                    $stmt->bindParam(':prix', $prix);
+                    $stmt->bindParam(':date_', $date_);
+                    $stmt->bindParam(':fk_immat', $fk_immat);
+                    $stmt->bindParam(':fk_vil_dep', $fk_vil_dep);
+                    $stmt->bindParam(':fk_vil_arv', $fk_vil_arv);
+                    $stmt->execute();
+                    return true;
+                }
             } catch (PDOException $e) {
-                // Handle the exception (e.g., log error, return false)
-                // You might want to handle the error more gracefully in a production environment
-                echo "Error: " . $e->getMessage();
-                return false;
+                $error = "Error: " . $e->getMessage();
+                return $error;
             }
         }
     }
@@ -88,7 +89,6 @@ class HoraireDAO
             try {
                 $query = "update  horaire set hr_dep=:hr_dep, hr_arv=:hr_arv, sieg_dispo=:sieg_dispo, prix=:prix,date_=:date_,fk_immat=:fk_immat,fk_vil_dep=:fk_vil_dep,fk_vil_arv=:fk_vil_arv where idHor=:idHor";
                 $stmt = $this->db->prepare($query);
-
                 $stmt->bindParam(':idHor', $idHor);
                 $stmt->bindParam(':hr_dep', $hr_dep);
                 $stmt->bindParam(':hr_arv', $hr_arv);
@@ -99,11 +99,32 @@ class HoraireDAO
                 $stmt->bindParam(':fk_vil_dep', $fk_vil_dep);
                 $stmt->bindParam(':fk_vil_arv', $fk_vil_arv);
                 $stmt->execute();
+
                 return true;
             } catch (PDOException $e) {
                 echo "Error: " . $e->getMessage();
                 return false;
             }
+        }
+    }
+    private function isDuplicateEntry($hr_dep, $hr_arv, $date_, $fk_immat, $fk_vil_dep, $fk_vil_arv)
+    {
+        try {
+            $query = "SELECT COUNT(*) FROM horaire WHERE hr_dep = :hr_dep AND hr_arv = :hr_arv and date_=:date_  AND fk_immat = :fk_immat  AND fk_vil_dep = :fk_vil_dep AND fk_vil_arv = :fk_vil_arv";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':hr_dep', $hr_dep);
+            $stmt->bindParam(':hr_arv', $hr_arv);
+            $stmt->bindParam(':fk_vil_dep', $fk_vil_dep);
+            $stmt->bindParam(':fk_vil_arv', $fk_vil_arv);
+            $stmt->bindParam(':fk_immat', $fk_immat);
+            $stmt->bindParam(':date_', $date_);
+            $stmt->execute();
+            if ($stmt->fetchColumn() > 0) {
+                return true;
+            }
+        } catch (PDOException $e) {
+            echo "Error checking duplicate entry: " . $e->getMessage();
+            return false;
         }
     }
     function deleteHoraire($idHor)
@@ -188,48 +209,7 @@ class HoraireDAO
 
         return $horaires;
     }
-    // public function get_horaireByEntrep($fk_vil_dep, $fk_vil_arv, $date_,$idEn)
-    // {
-    //     $date = date('Y-m-d', strtotime($date_));
-    //     var_dump($fk_vil_dep, $fk_vil_arv, $date, $idEn);
-    //     $query = "SELECT horaire.*, route.duree,entreprise.nomEn, entreprise.imgEn AS entrepImage
-    //     FROM horaire
-    //     INNER JOIN route ON horaire.fk_vil_dep = route.vil_dep and horaire.fk_vil_arv = route.vil_arv
-    //     INNER JOIN Bus ON horaire.fk_immat= Bus.immat
-    //     INNER JOIN entreprise ON Bus.fk_idEn = entreprise.idEn
-    //     WHERE horaire.date_ = :date_
-    //     AND horaire.fk_vil_dep = :fk_vil_dep
-    //     AND horaire.fk_vil_arv = :fk_vil_arv and entreprise.idEn=:idEn";
-    //     // $query = "SELECT horaire.*, route.duree,entreprise.nomEn, entreprise.imgEn AS entrepImages FROM horaire INNER JOIN route ON horaire.fk_vil_dep = route.vil_dep and horaire.fk_vil_arv = route.vil_arv INNER JOIN Bus ON horaire.fk_immat= Bus.immat  INNER JOIN entreprise ON Bus.fk_idEn = entreprise.idEn WHERE entreprise.idEn=:idEn";
-    //     $stmt = $this->db->prepare($query);
-    //     $stmt->bindParam(':date_', $date, PDO::PARAM_STR);
-    //     $stmt->bindParam(':fk_vil_arv', $fk_vil_arv, PDO::PARAM_STR);
-    //     $stmt->bindParam(':fk_vil_dep', $fk_vil_dep, PDO::PARAM_STR);
-    //     $stmt->bindParam(':idEn', $idEn, PDO::PARAM_INT);
-    //     $stmt->execute();
-    //     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    //     $horaires = array();
-    //     foreach ($result as $row) {
-    //         $base64Image = base64_encode($row['entrepImage']);
-
-    //         $horaires[] = [
-    //             'idHor' => $row['idHor'],
-    //             'hr_dep' => $row['hr_dep'],
-    //             'hr_arv' => $row['hr_arv'],
-    //             'sieg_dispo' => $row['sieg_dispo'],
-    //             'prix' => $row['prix'],
-    //             'date_' => $row['date_'],
-    //             'fk_immat' => $row['fk_immat'],
-    //             'fk_vil_dep' => $row['fk_vil_dep'],
-    //             'fk_vil_arv' => $row['fk_vil_arv'],
-    //             'duree' => $row['duree'],
-    //             'nomEn' => $row['nomEn'],
-    //             'base64Image' => $base64Image,
-    //         ];
-    //     }
-    //     return $horaires;
-    // }
-
+   
 }
 
 

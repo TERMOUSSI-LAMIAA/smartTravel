@@ -14,10 +14,20 @@ class contoller_horaire
         include "Vue\admin\showHoraire.php";
     }
 
+    // function addHoraireController()
+    // {
+    //     $villeDAO = new VilleDAO();
+    //     $villes = $villeDAO->get_ville();
+    //     $busDAO = new BusDAO();
+    //     $buses = $busDAO->get_bus();
+    //     include "Vue\admin\addHoraire.php";
+    // }
     function addHoraireController()
     {
-        $villeDAO = new VilleDAO();
-        $villes = $villeDAO->get_ville();
+        // $villeDAO = new VilleDAO();
+        // $villes = $villeDAO->get_ville();
+        $routeDAO = new RouteDAO();
+        $routes = $routeDAO->get_route();
         $busDAO = new BusDAO();
         $buses = $busDAO->get_bus();
         include "Vue\admin\addHoraire.php";
@@ -28,17 +38,16 @@ class contoller_horaire
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $horDAO = new HoraireDAO();
             $inserted = $horDAO->insert_horaire();
-            if ($inserted) {
+            if ($inserted === true) {
                 header('Location: index.php?action=showHoraire');
                 exit();
             } else {
-                echo 'Adding error';
+                header('Location: index.php?status=' .$inserted );
+                exit();
             }
         }
-
-
     }
-    public function updtHorController() ///!!!!!!!!!!
+    public function updtHorController()
     {
         if (isset($_GET['idHor'])) {
             $idHor = $_GET['idHor'];
@@ -48,17 +57,22 @@ class contoller_horaire
             $buses = $busDAO->get_bus();
             $horDAO = new HoraireDAO();
             $hor = $horDAO->get_horairebyID($idHor);
-            
+
             include("Vue\admin\updtHoraire.php");
         }
     }
 
     public function updtHorControllerAction()
     {
-        $horDAO = new HoraireDAO();
-        $horDAO->updateHoraire();
-        header('Location: index.php?action=showHoraire');
-        exit;
+        try {
+            $horDAO = new HoraireDAO();
+            $horDAO->updateHoraire();
+            header('Location: index.php?action=showHoraire');
+            exit;
+        } catch (Exception $e) {
+            error_log('Error in updtHorControllerAction:' . $e->getMessage(), 0);
+        }
+
     }
     public function deleteHorControllerAction()
     {

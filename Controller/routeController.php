@@ -48,16 +48,15 @@ class contoller_route
         }
     }
 
-    public function updtRouteControllerAction()//!!!!!!!!!!!!
+    public function updtRouteControllerAction()
     {
-        try{
+        try {
             $routeDAO = new RouteDAO();
             $routeDAO->updateRoute();
             header('Location: index.php?action=showRoute');
             exit;
-        }
-        catch (Exception $e) {
-            error_log('Error in updtBusControllerAction:' . $e->getMessage(), 0);
+        } catch (Exception $e) {
+            error_log('Error in updtRouteControllerAction:' . $e->getMessage(), 0);
         }
 
     }
@@ -67,7 +66,7 @@ class contoller_route
         $vil_dep = $_GET['vil_dep'];
         $vil_arv = $_GET['vil_arv'];
         $routeDAO = new RouteDAO();
-        $routeDAO->deleteRoute($vil_dep,$vil_arv);
+        $routeDAO->deleteRoute($vil_dep, $vil_arv);
         header('Location: index.php?action=showRoute');
         exit;
     }

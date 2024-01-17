@@ -10,22 +10,8 @@ class contoller_Home
     {
         $VilleDAO = new VilleDAO();
         $villes = $VilleDAO->get_ville();
-        include "home.php";
+        include "Vue/home.php";
     }
-    // function getSearchedHoraire()
-    // {
-    //     $horDAO = new HoraireDAO();
-    //     $hor = $horDAO->search_Horaire();
-    //     // print_r($hor);
-    //     if ($hor) {
-    //         // Process and display the results
-    //         // include "home.php";
-    //         // print_r($hor);
-    //     } else {
-    //         // Handle the case when the query fails
-    //         echo "Error in searching Horaire.";
-    //     }
-    // }
 
     public function getSearchedHoraireController()
     {
@@ -45,7 +31,7 @@ class contoller_Home
             $horDAO = new HoraireDAO();
             $horaires = $horDAO->search_Horaire($fk_vil_dep, $fk_vil_arv, $date_);
             if (!empty($horaires)) {
-                include("details.php");
+                include("Vue\details.php");
             } else {
                 echo "No results found.";
             }
