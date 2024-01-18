@@ -33,7 +33,7 @@ class contoller_Home
             if (!empty($horaires)) {
                 include("Vue\details.php");
             } else {
-                echo "No results found.";
+                include("Vue\details.php");
             }
         }
     }

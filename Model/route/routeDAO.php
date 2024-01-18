@@ -28,8 +28,12 @@ class RouteDAO
             $vil_arv = $_POST["vil_arv"];
             $dist = $_POST["dist"];
             $dure = $_POST["dure"];
-
+            $error = "";
             try {
+                if ($vil_dep == $vil_arv) {
+                    $error="Error: Departure and arrival cities cannot be the same.";
+                    return $error;     
+                }
                 $query = "INSERT INTO route (vil_dep, vil_arv, dist, duree) VALUES (:vil_dep, :vil_arv, :dist, :dure)";
                 $stmt = $this->db->prepare($query);
 
@@ -40,8 +44,8 @@ class RouteDAO
                 $stmt->execute();
                 return true;
             } catch (PDOException $e) {
-                echo "Error: " . $e->getMessage();
-                return false;
+                $error="Error: " . $e->getMessage();
+                return $error;
             }
         }
 
@@ -89,7 +93,7 @@ class RouteDAO
             }
         }
     }
-    function deleteRoute($vil_dep,$vil_arv)
+    function deleteRoute($vil_dep, $vil_arv)
     {
         try {
             $query = "delete from route where vil_dep=:vil_dep and vil_arv=:vil_arv";

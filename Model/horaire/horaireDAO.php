@@ -123,7 +123,7 @@ class HoraireDAO
                 return true;
             }
         } catch (PDOException $e) {
-            echo "Error checking duplicate entry: " . $e->getMessage();
+            echo "Error  duplicate entry: " . $e->getMessage();
             return false;
         }
     }
@@ -175,6 +175,7 @@ class HoraireDAO
         $stmt->bindParam(':date_', $date, PDO::PARAM_STR);
         $stmt->bindParam(':fk_vil_arv', $fk_vil_arv, PDO::PARAM_STR);
         $stmt->bindParam(':fk_vil_dep', $fk_vil_dep, PDO::PARAM_STR);
+        
         if (!empty($idEn)) {
             $stmt->bindParam(':idEn', $idEn, PDO::PARAM_INT);
         }
@@ -209,7 +210,7 @@ class HoraireDAO
 
         return $horaires;
     }
-   
+
 }
 
 

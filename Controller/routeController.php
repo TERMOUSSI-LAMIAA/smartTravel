@@ -25,15 +25,13 @@ class contoller_route
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $routeDAO = new RouteDAO();
             $inserted = $routeDAO->insert_route();
-            if ($inserted) {
+            if ($inserted===true) {
                 header('Location: index.php?action=showRoute');
                 exit();
             } else {
-                echo 'Adding error';
+                echo $inserted;
             }
         }
-
-
     }
     public function updtRouteController()
     {
